@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TowerManager : MonoBehaviour
 {
+	public static Queue<TowerBehaviour> TowersToSpawn;
+	public static Queue<Vector3Int> TowersToDestroy;
 	public static List<TowerBehaviour> TowersInGame;
 	public static TowerData[] TowerResources;
 	public static int CurrentTowerSelected = 0;
@@ -16,6 +18,8 @@ public class TowerManager : MonoBehaviour
 		{
 			TowersInGame = new List<TowerBehaviour>();
 			TowerResources = Resources.LoadAll<TowerData>("Entities/Towers");
+			TowersToSpawn = new Queue<TowerBehaviour>();
+			TowersToDestroy = new Queue<Vector3Int>();
 		}
 		else
 		{
@@ -29,25 +33,37 @@ public class TowerManager : MonoBehaviour
 		{
 			TowerData towerData = TowerResources[CurrentTowerSelected];
 			TowerBehaviour tower = new TowerBehaviour(towerData, position, worldPosition);
-			TowersInGame.Add(tower);
+			TowersToSpawn.Enqueue(tower);
 			return tower;
 		}
 		return null;
 	}
 
-
-	public static TowerBehaviour RemoveTower(Vector3Int position)
+	public static void SpawnTowers()
 	{
-		TowerBehaviour tower = null;
-		foreach(TowerBehaviour t in TowersInGame.ToArray())
+		for (int i = 0; i < TowersToSpawn.Count; i++)
 		{
-			if(t.Position == position)
+			TowerBehaviour tower = TowersToSpawn.Dequeue();
+			TowersInGame.Add(tower);
+		}
+	}
+
+	public static void RemoveTower(Vector3Int position)
+	{
+		TowersToDestroy.Enqueue(position);
+	}
+
+	public static void RemoveTowers()
+	{
+		for (int i = 0; i < TowersToDestroy.Count; i++)
+		{
+			Vector3Int position = TowersToDestroy.Dequeue();
+			int index = TowersInGame.FindIndex(t => t.Position.Equals(position));
+			if(index >= 0)
 			{
-				TowersInGame.Remove(t);
-				tower = t;
+				TowersInGame.RemoveAt(index);
 			}
 		}
-		return tower;
 	}
 
 	private void OnDrawGizmos()

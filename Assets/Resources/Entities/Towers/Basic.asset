@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15597201b20d9f4788c7585ca1af2f8, type: 3}
   m_Name: Basic
   m_EditorClassIdentifier: 
+  EnemiesLayer:
+    serializedVersion: 2
+    m_Bits: 64
   Tile: {fileID: 11400000, guid: 10c8e42455e4b414fa4e0f0eb17e14c1, type: 2}
-  BaseRange: 10
+  BaseRange: 0.5
   BaseDamage: 2
   BaseFirerate: 10

@@ -66,12 +66,9 @@ public class GridController : MonoBehaviour
 			Vector3Int pos = top.First;
 			pos.z += 1;
 			
-			var tower = TowerManager.RemoveTower(pos);
-			if (tower != null)
-			{
-				towersMap.SetTile(pos, null);
-			}
-			
+			TowerManager.RemoveTower(pos);
+			towersMap.SetTile(pos, null);
+
 			// pathController.RemoveWaypoint(mousePos);
 		}
     }
@@ -99,13 +96,32 @@ public class GridController : MonoBehaviour
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		mouseWorldPos.y -= 0.08f;
-        Vector3Int mousePos = baseMap.WorldToCell(mouseWorldPos);
-		mousePos.x += mousePos.z;
-		mousePos.y += mousePos.z;
-		mousePos.z = 0;
-		return mousePos;
+
+		Vector3Int gridCell = grid.WorldToCell(mouseWorldPos);
+		gridCell.x += gridCell.z;
+		gridCell.y += gridCell.z;
+		gridCell.z = 0;
+
+
+		// Reference:
+		// https://answers.unity.com/questions/1622564/selecting-a-tile-with-z-as-y-isometric-tilemaps.html
+		// The problem will keep happening because there are different heights of tiles
+
+		mouseWorldPos.y -= 0.8f;
+		for (int z = 10; z > -1; z--)
+		{
+			gridCell = grid.WorldToCell(mouseWorldPos);
+			var tile = baseMap.GetTile(new Vector3Int(gridCell.x, gridCell.y, z));
+			if (tile != null)
+			{
+				break;
+			}
+			mouseWorldPos.y += 0.08f;
+		}
+
+		gridCell.x += gridCell.z;
+		gridCell.y += gridCell.z;
+		gridCell.z = 0;
+		return gridCell;
 	}
 }
-
-// Reference:
-// https://answers.unity.com/questions/1622564/selecting-a-tile-with-z-as-y-isometric-tilemaps.html

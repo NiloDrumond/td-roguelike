@@ -32,13 +32,13 @@ public class GameLoopManager : MonoBehaviour
         pathController = GameObject.Find("Grid/Path").GetComponent<PathController>();
 
         WaypointPositions = pathController.GetWorldArray();
-        WaypointDistances = new float[WaypointPositions.Length - 1];
+        WaypointDistances = new float[Mathf.Max(0, WaypointPositions.Length - 1)];
 		for (int i = 0; i < WaypointDistances.Length; i++)
 		{
             WaypointDistances[i] = Vector3.Distance(WaypointPositions[i], WaypointPositions[i + 1]); 
 		}
 
-        WaypointDistancesToEnd = new float[WaypointDistances.Length];
+        WaypointDistancesToEnd = new float[WaypointPositions.Length];
         for (int i = 0; i < WaypointDistances.Length; i++)
 		{
             float distance = 0;
@@ -76,6 +76,8 @@ public class GameLoopManager : MonoBehaviour
 			}
 
             // Spawn Towers
+
+            TowerManager.SpawnTowers();
 
             // Move Enemies
 
@@ -120,7 +122,7 @@ public class GameLoopManager : MonoBehaviour
 
             foreach(TowerBehaviour tower in TowerManager.TowersInGame)
 			{
-                tower.Target = TowerTargeting.GetTarget(tower, TowerTargeting.TargetType.Close);
+                tower.Target = TowerTargeting.GetTarget(tower, TowerTargeting.TargetType.First);
                 tower.Tick();
 			}
 
@@ -139,6 +141,9 @@ public class GameLoopManager : MonoBehaviour
             }
 
             // Remove Towers
+
+            TowerManager.RemoveTowers();
+
             yield return null;
 		}
 	}
