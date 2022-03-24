@@ -2,40 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerBehaviour
+public class TowerBehaviour: MonoBehaviour
 {
     public LayerMask EnemiesLayer;
     public Enemy Target;
-    public TowerData Data;
-    public Vector3Int Position;
-    public Vector3 WorldPosition;
+    public float Damage;
+    public float Firerate;
     public float Range;
 
     private float delay;
 
-    
+    private IDamageMethod damageMethod;
 
-    // Start is called before the first frame update
-    public TowerBehaviour(TowerData data, Vector3Int position, Vector3 worldPosition)
+    private void Start()
 	{
-        Data = data;
-        Position = position;
-        WorldPosition = worldPosition;
+        IDamageMethod method = GetComponent<IDamageMethod>();
 
-        Range = data.BaseRange * (1 + GlobalConstants.TOWER_RANGE_HEIGHT_BONUS * position.z);
-        EnemiesLayer = data.EnemiesLayer;
-        delay = 1 / data.BaseFirerate;
+        if(method == null)
+		{
+            Debug.LogError("TOWER_BEHAVIOUR: Damage method not found");
+		}
 
-        Data.DamageMethod.Init(data.BaseDamage, data.BaseFirerate);
-    }
+        damageMethod = method;
+
+        damageMethod.Init(Damage, Firerate);
+
+        delay = 1 / Firerate;
+	}
+
 
 	public void Tick()
 	{
-        
-
-        if(Target != null)
+        if(damageMethod != null)
 		{
-            Data.DamageMethod.DamageTick(Target);
+            damageMethod.DamageTick(Target);
 		}
 	}
 }

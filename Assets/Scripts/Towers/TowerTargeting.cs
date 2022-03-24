@@ -29,7 +29,7 @@ public class TowerTargeting
 
     public static Enemy GetTarget(TowerBehaviour currentTower, TargetType targetingType)
 	{
-		Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(new Vector3(currentTower.WorldPosition.x, currentTower.WorldPosition.y, 0), currentTower.Range, currentTower.EnemiesLayer);
+		Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(new Vector3(currentTower.transform.position.x, currentTower.transform.position.y, 0), currentTower.Range, currentTower.EnemiesLayer);
 		NativeArray<EnemyData> enemiesToCalculate = new NativeArray<EnemyData>(enemiesInRange.Length, Allocator.TempJob);
 		NativeArray<int> enemyToIndex = new NativeArray<int>(new int[] { -1 }, Allocator.TempJob);
 
@@ -39,7 +39,7 @@ public class TowerTargeting
 		for (int i = 0; i < enemiesToCalculate.Length; i++)
 		{
 			Enemy enemy = enemiesInRange[i].GetComponent<Enemy>();
-			int enemyIndexInList = EntitySummoner.EnemiesInGame.FindIndex(x => x == enemy);
+			int enemyIndexInList = EntityManager.EnemiesInGame.FindIndex(x => x == enemy);
 			
 			// Mathf.Min for the case when the enemy reaches the end making its waypointIndex == waypoints.length
 			float distanceToEnd = GameLoopManager.WaypointDistancesToEnd[Mathf.Min(enemy.WaypointIndex, waypointsMaxIndex)];
@@ -48,7 +48,7 @@ public class TowerTargeting
 			enemiesToCalculate[i] = new EnemyData(new Vector3(enemy.transform.position.x, enemy.transform.position.y, 0), enemy.WaypointIndex, enemy.Health, enemyIndexInList, distanceToEnd, waypointPosition);
 		}
 
-		SearchForEnemy enemySearchJob = new SearchForEnemy(enemiesToCalculate, enemyToIndex, new Vector3(currentTower.WorldPosition.x, currentTower.WorldPosition.y, 0), GetCompareValue(targetingType), (int)targetingType);
+		SearchForEnemy enemySearchJob = new SearchForEnemy(enemiesToCalculate, enemyToIndex, new Vector3(currentTower.transform.position.x, currentTower.transform.position.y, 0), GetCompareValue(targetingType), (int)targetingType);
 
 		JobHandle dependency = new JobHandle();
 		JobHandle SearchJobHandle = enemySearchJob.Schedule(enemiesToCalculate.Length, dependency);
@@ -69,7 +69,7 @@ public class TowerTargeting
 			enemyToIndex.Dispose();
 			enemiesToCalculate.Dispose();
 
-			return EntitySummoner.EnemiesInGame[enemyIndexToReturn];
+			return EntityManager.EnemiesInGame[enemyIndexToReturn];
 		}
 
 		

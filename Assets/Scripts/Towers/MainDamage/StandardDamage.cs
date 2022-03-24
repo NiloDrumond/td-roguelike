@@ -9,8 +9,7 @@ public interface IDamageMethod
     public void Init(float damage, float firerate);
 }
 
-[Serializable]
-public class StandardDamage : IDamageMethod
+public class StandardDamage : MonoBehaviour, IDamageMethod
 {
 	private float damage;
 	private float firerate;

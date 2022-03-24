@@ -27,7 +27,8 @@ public class GameLoopManager : MonoBehaviour
         damageData = new Queue<EnemyDamageData>();
         enemyIDsToSummon = new Queue<int>();
         enemiesToRemove = new Queue<Enemy>();
-        EntitySummoner.Init();
+        InputManager.Init();
+        EntityManager.Init();
         TowerManager.Init();
 
        
@@ -73,7 +74,7 @@ public class GameLoopManager : MonoBehaviour
 			{
                 for(int i = 0; i < enemyIDsToSummon.Count; i++)
 				{
-                    EntitySummoner.SummonEnemy(enemyIDsToSummon.Dequeue());
+                    EntityManager.SummonEnemy(enemyIDsToSummon.Dequeue());
 				}
 			}
 
@@ -84,14 +85,14 @@ public class GameLoopManager : MonoBehaviour
             // Move Enemies
 
             NativeArray<Vector3> waypointsToUse = new NativeArray<Vector3>(WaypointPositions, Allocator.TempJob);
-            NativeArray<int> waypointIndices = new NativeArray<int>(EntitySummoner.EnemiesInGame.Count, Allocator.TempJob);
-            NativeArray<float> enemySpeeds = new NativeArray<float>(EntitySummoner.EnemiesInGame.Count, Allocator.TempJob);
-            TransformAccessArray enemyAccess = new TransformAccessArray(EntitySummoner.EnemiesInGameTransform.ToArray(), 2);
+            NativeArray<int> waypointIndices = new NativeArray<int>(EntityManager.EnemiesInGame.Count, Allocator.TempJob);
+            NativeArray<float> enemySpeeds = new NativeArray<float>(EntityManager.EnemiesInGame.Count, Allocator.TempJob);
+            TransformAccessArray enemyAccess = new TransformAccessArray(EntityManager.EnemiesInGameTransform.ToArray(), 2);
 
-			for (int i = 0; i < EntitySummoner.EnemiesInGame.Count; i++)
+			for (int i = 0; i < EntityManager.EnemiesInGame.Count; i++)
 			{
-                enemySpeeds[i] = EntitySummoner.EnemiesInGame[i].Speed;
-                waypointIndices[i] = EntitySummoner.EnemiesInGame[i].WaypointIndex;
+                enemySpeeds[i] = EntityManager.EnemiesInGame[i].Speed;
+                waypointIndices[i] = EntityManager.EnemiesInGame[i].WaypointIndex;
 			}
 
             MoveEnemiesJob moveJob = new MoveEnemiesJob {
@@ -104,13 +105,13 @@ public class GameLoopManager : MonoBehaviour
             JobHandle moveJobHandle = moveJob.Schedule(enemyAccess);
             moveJobHandle.Complete();
 
-			for (int i = 0; i < EntitySummoner.EnemiesInGame.Count; i++)
+			for (int i = 0; i < EntityManager.EnemiesInGame.Count; i++)
 			{
-                EntitySummoner.EnemiesInGame[i].WaypointIndex = waypointIndices[i];
+                EntityManager.EnemiesInGame[i].WaypointIndex = waypointIndices[i];
 
-                if(EntitySummoner.EnemiesInGame[i].WaypointIndex == WaypointPositions.Length)
+                if(EntityManager.EnemiesInGame[i].WaypointIndex == WaypointPositions.Length)
 				{
-                    EnqueueEnemyToRemove(EntitySummoner.EnemiesInGame[i]);
+                    EnqueueEnemyToRemove(EntityManager.EnemiesInGame[i]);
 				}
 
             }
@@ -153,7 +154,7 @@ public class GameLoopManager : MonoBehaviour
 			{
                 for (int i = 0; i < enemiesToRemove.Count; i++)
                 {
-                    EntitySummoner.RemoveEnemy(enemiesToRemove.Dequeue());
+                    EntityManager.RemoveEnemy(enemiesToRemove.Dequeue());
                 }
             }
 

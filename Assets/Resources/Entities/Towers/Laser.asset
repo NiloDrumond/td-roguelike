@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a15597201b20d9f4788c7585ca1af2f8, type: 3}
-  m_Name: Basic
+  m_Name: Laser
   m_EditorClassIdentifier: 
-  TowerPrefab: {fileID: 8348081313172947891, guid: d191bc978d371b84482c94a4ff356325, type: 3}
-  TowerID: 0
+  TowerPrefab: {fileID: 3400504186490985679, guid: 4eaa8832c04cdd44098fd13410a60609, type: 3}
+  TowerID: 1

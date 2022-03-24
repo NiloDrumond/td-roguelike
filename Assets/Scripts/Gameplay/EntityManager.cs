@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntitySummoner : MonoBehaviour
+public class EntityManager : MonoBehaviour
 {
 	public static List<Enemy> EnemiesInGame;
 	public static List<Transform> EnemiesInGameTransform;
+
+	public static Dictionary<Transform, Enemy> EnemyTransformMap;
     public static Dictionary<int, GameObject> EnemyPrefabs;
     public static Dictionary<int, Queue<Enemy>> EnemyObjectPools;
 	
@@ -17,6 +19,7 @@ public class EntitySummoner : MonoBehaviour
 		{
 			EnemyPrefabs = new Dictionary<int, GameObject>();
 			EnemyObjectPools = new Dictionary<int, Queue<Enemy>>();
+			EnemyTransformMap = new Dictionary<Transform, Enemy>();
 			EnemiesInGame = new List<Enemy>();
 			EnemiesInGameTransform = new List<Transform>();
 			enemiesParent = GameObject.Find("Enemies");
@@ -57,8 +60,10 @@ public class EntitySummoner : MonoBehaviour
 			Debug.LogWarning($"ENTITYSUMMONER: enemy with id {enemyId} not found");
 			return null;
 		}
-		EnemiesInGame.Add(summonedEnemy);
-		EnemiesInGameTransform.Add(summonedEnemy.transform);
+		
+		if(!EnemiesInGame.Contains(summonedEnemy)) EnemiesInGame.Add(summonedEnemy);
+		if(!EnemiesInGameTransform.Contains(summonedEnemy.transform))  EnemiesInGameTransform.Add(summonedEnemy.transform);
+		if (!EnemyTransformMap.ContainsKey(summonedEnemy.transform)) EnemyTransformMap.Add(summonedEnemy.transform, summonedEnemy);
 		summonedEnemy.ID = enemyId;
 		return summonedEnemy;
 	}
@@ -68,6 +73,7 @@ public class EntitySummoner : MonoBehaviour
 		EnemyObjectPools[enemy.ID].Enqueue(enemy);
 		enemy.gameObject.SetActive(false);
 		EnemiesInGame.Remove(enemy);
+		EnemyTransformMap.Remove(enemy.transform);
 		EnemiesInGameTransform.Remove(enemy.transform);
 	}
 }

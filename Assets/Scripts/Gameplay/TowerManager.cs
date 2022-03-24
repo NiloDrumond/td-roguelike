@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class TowerManager : MonoBehaviour
 {
-	public static Queue<TowerBehaviour> TowersToSpawn;
-	public static Queue<Vector3Int> TowersToDestroy;
+	private static Queue<TowerSpawnData> TowersToSpawn;
+	private static Queue<Vector3> TowersToDestroy;
 	public static List<TowerBehaviour> TowersInGame;
-	public static TowerData[] TowerResources;
-	public static int CurrentTowerSelected = 0;
+	public static Dictionary<int, GameObject> TowerPrefabs;
+	public static int TowerToBuild = 0;
 
-	private static bool isInitialized;
+	private static bool isInitialized = false;
+	private static GameObject towersParent;
 
 
 	public static void Init()
@@ -18,9 +19,20 @@ public class TowerManager : MonoBehaviour
 		if (!isInitialized)
 		{
 			TowersInGame = new List<TowerBehaviour>();
-			TowerResources = Resources.LoadAll<TowerData>("Entities/Towers");
-			TowersToSpawn = new Queue<TowerBehaviour>();
-			TowersToDestroy = new Queue<Vector3Int>();
+			TowerData[] towerResources = Resources.LoadAll<TowerData>("Entities/Towers");
+			TowerPrefabs = new Dictionary<int, GameObject>();
+			for (int i = 0; i < towerResources.Length; i++)
+			{
+				TowerPrefabs.Add(towerResources[i].TowerID, towerResources[i].TowerPrefab);
+			}
+
+			TowersToSpawn = new Queue<TowerSpawnData>();
+			TowersToDestroy = new Queue<Vector3>();
+
+
+			towersParent = GameObject.Find("Towers");
+
+			isInitialized = true;
 		}
 		else
 		{
@@ -29,33 +41,35 @@ public class TowerManager : MonoBehaviour
 	}
 
 
-	public static void SelectTower(int index)
+	public static void SelectTowerToBuild(int index)
 	{
-		CurrentTowerSelected = index;
+		TowerToBuild = index;
 	}
 
-	public static TowerBehaviour PlaceTower(Vector3Int position, Vector3 worldPosition)
+	public static bool PlaceTower(Vector3 worldPosition)
 	{
-		if (CurrentTowerSelected >= 0)
+		if (TowerToBuild >= 0)
 		{
-			TowerData towerData = TowerResources[CurrentTowerSelected];
-			TowerBehaviour tower = new TowerBehaviour(towerData, position, worldPosition);
-			TowersToSpawn.Enqueue(tower);
-			return tower;
+			TowerSpawnData data = new TowerSpawnData() { ID = TowerToBuild, Position = worldPosition };
+			TowersToSpawn.Enqueue(data);
+			return true;
 		}
-		return null;
+		return false;
 	}
 
 	public static void SpawnTowers()
 	{
 		for (int i = 0; i < TowersToSpawn.Count; i++)
 		{
-			TowerBehaviour tower = TowersToSpawn.Dequeue();
-			TowersInGame.Add(tower);
+			TowerSpawnData data = TowersToSpawn.Dequeue();
+			GameObject tower = Instantiate(TowerPrefabs[data.ID], data.Position, Quaternion.identity, towersParent.transform);
+			tower.transform.position = new Vector3(tower.transform.position.x, tower.transform.position.y, tower.transform.position.z + data.Position.z);
+			TowerBehaviour towerBehaviour = tower.GetComponent<TowerBehaviour>();
+			TowersInGame.Add(towerBehaviour);
 		}
 	}
 
-	public static void RemoveTower(Vector3Int position)
+	public static void RemoveTower(Vector3 position)
 	{
 		TowersToDestroy.Enqueue(position);
 	}
@@ -64,28 +78,22 @@ public class TowerManager : MonoBehaviour
 	{
 		for (int i = 0; i < TowersToDestroy.Count; i++)
 		{
-			Vector3Int position = TowersToDestroy.Dequeue();
-			int index = TowersInGame.FindIndex(t => t.Position.Equals(position));
+			Vector3 position = TowersToDestroy.Dequeue();
+			int index = TowersInGame.FindIndex(t => {
+				return t.transform.position.x == position.x && t.transform.position.y == position.y;
+			});
 			if(index >= 0)
 			{
+				GameObject obj = TowersInGame[index].gameObject;
 				TowersInGame.RemoveAt(index);
+				Destroy(obj);
 			}
 		}
 	}
+}
 
-	private void OnDrawGizmos()
-	{
-		if(TowersInGame != null)
-		{
-			foreach (TowerBehaviour t in TowersInGame.ToArray())
-			{
-				Gizmos.DrawWireSphere(t.WorldPosition, t.Range);
-				if (t.Target != null)
-				{
-					Debug.DrawLine(t.WorldPosition, t.Target.transform.position);
-				}
-			}
-		}
-		
-	}
+public struct TowerSpawnData
+{
+	public Vector3 Position;
+	public int ID;
 }

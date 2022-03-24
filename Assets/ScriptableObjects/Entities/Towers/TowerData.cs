@@ -7,10 +7,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Tower", menuName = "ScriptableObjects/Tower")]
 public class TowerData : ScriptableObject
 {
-    public LayerMask EnemiesLayer;
-    public Tile Tile;
-    public float BaseRange;
-    public float BaseDamage;
-    public float BaseFirerate;
-    [SerializeReference] public IDamageMethod DamageMethod;
+    public GameObject TowerPrefab;
+    public int TowerID;
 }
