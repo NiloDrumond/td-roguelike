@@ -232,7 +232,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   Damage: 0.2
   Firerate: 25
-  Range: 10
+  Range: 0.5
 --- !u!114 &7319714414853996395
 MonoBehaviour:
   m_ObjectHideFlags: 0

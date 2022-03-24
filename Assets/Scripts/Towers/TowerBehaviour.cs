@@ -38,4 +38,9 @@ public class TowerBehaviour: MonoBehaviour
             damageMethod.DamageTick(Target);
 		}
 	}
+
+	private void OnDrawGizmos()
+	{
+        Gizmos.DrawWireSphere(gameObject.transform.position, Range);
+	}
 }
