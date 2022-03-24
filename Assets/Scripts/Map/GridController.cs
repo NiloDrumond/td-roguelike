@@ -6,7 +6,10 @@ using UnityEngine.UIElements;
 
 public class GridController : MonoBehaviour
 {
-    private Grid grid;
+
+	[SerializeField] private bool isEditing;
+	[Space]
+	private Grid grid;
     [SerializeField] private Tilemap baseMap = null;
     [SerializeField] private Tilemap interactiveMap = null;
 	[SerializeField] private Tilemap towersMap = null;
@@ -44,32 +47,42 @@ public class GridController : MonoBehaviour
 		// Left-click
 		if(Input.GetMouseButtonUp(0))
 		{
-			var top = GetTopTile(mousePos);
-			Vector3Int pos = top.First;
-			pos.z += 1;
-			var tile = towersMap.GetTile(pos);
-			if(tile == null)
+			if(isEditing)
 			{
-				var tower = TowerManager.PlaceTower(pos, towersMap.CellToWorld(pos));
-				if(tower != null)
+				pathController.AddWaypoint(mousePos);
+			} else
+			{
+				var top = GetTopTile(mousePos);
+				Vector3Int pos = top.First;
+				pos.z += 1;
+				var tile = towersMap.GetTile(pos);
+				if (tile == null)
 				{
-					towersMap.SetTile(pos, tower.Data.Tile);
+					var tower = TowerManager.PlaceTower(pos, towersMap.CellToWorld(pos));
+					if (tower != null)
+					{
+						towersMap.SetTile(pos, tower.Data.Tile);
+					}
 				}
 			}
-			// pathController.AddWaypoint(mousePos);
+			
 		}
 
 		// Right-click
 		if(Input.GetMouseButtonUp(1))
 		{
-			var top = GetTopTile(mousePos);
-			Vector3Int pos = top.First;
-			pos.z += 1;
-			
-			TowerManager.RemoveTower(pos);
-			towersMap.SetTile(pos, null);
+			if (isEditing)
+			{
+				pathController.RemoveWaypoint(mousePos);
+			} else
+			{
+				var top = GetTopTile(mousePos);
+				Vector3Int pos = top.First;
+				pos.z += 1;
 
-			// pathController.RemoveWaypoint(mousePos);
+				TowerManager.RemoveTower(pos);
+				towersMap.SetTile(pos, null);
+			}
 		}
     }
 

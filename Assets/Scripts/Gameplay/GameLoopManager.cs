@@ -8,11 +8,13 @@ using UnityEngine.Jobs;
 public class GameLoopManager : MonoBehaviour
 {
     
-
+    
     public static Vector3[] WaypointPositions;
     public static float[] WaypointDistances;
     public static float[] WaypointDistancesToEnd;
     private static PathController pathController;
+
+    private static Queue<EnemyDamageData> damageData;
 
     private static Queue<Enemy> enemiesToRemove;
     private static Queue<int> enemyIDsToSummon;
@@ -21,8 +23,8 @@ public class GameLoopManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
 
+        damageData = new Queue<EnemyDamageData>();
         enemyIDsToSummon = new Queue<int>();
         enemiesToRemove = new Queue<Enemy>();
         EntitySummoner.Init();
@@ -130,6 +132,21 @@ public class GameLoopManager : MonoBehaviour
 
             // Damage Enemies
 
+            if (damageData.Count > 0)
+            {
+                for (int i = 0; i < damageData.Count; i++)
+                {
+                    EnemyDamageData currentDamageData = damageData.Dequeue();
+                    currentDamageData.TargetedEnemy.Health -= currentDamageData.TotalDamage / currentDamageData.Resistance;
+
+                    if(currentDamageData.TargetedEnemy.Health <= 0f)
+					{
+                        EnqueueEnemyToRemove(currentDamageData.TargetedEnemy);
+					}
+                }
+            }
+
+
             // Remove Enemies
 
             if (enemiesToRemove.Count > 0)
@@ -146,6 +163,11 @@ public class GameLoopManager : MonoBehaviour
 
             yield return null;
 		}
+	}
+
+    public static void EnqueueDamageData(EnemyDamageData data)
+	{
+        damageData.Enqueue(data);
 	}
 
     public static void EnqueueEnemyIDToSummon(int id)
@@ -187,4 +209,18 @@ public struct MoveEnemiesJob: IJobParallelForTransform
             }
         }   
 	}
+}
+
+public struct EnemyDamageData
+{
+    public EnemyDamageData(Enemy targetedEnemy, float totalDamage, float resistance)
+	{
+        TargetedEnemy = targetedEnemy;
+        TotalDamage = totalDamage;
+        Resistance = resistance;
+	}
+
+    public Enemy TargetedEnemy;
+    public float TotalDamage;
+    public float Resistance;
 }

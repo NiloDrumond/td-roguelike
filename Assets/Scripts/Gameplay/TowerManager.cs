@@ -12,6 +12,7 @@ public class TowerManager : MonoBehaviour
 
 	private static bool isInitialized;
 
+
 	public static void Init()
 	{
 		if (!isInitialized)
@@ -25,6 +26,12 @@ public class TowerManager : MonoBehaviour
 		{
 			Debug.LogWarning("ENTITYSUMMONER: this class has already initialized");
 		}
+	}
+
+
+	public static void SelectTower(int index)
+	{
+		CurrentTowerSelected = index;
 	}
 
 	public static TowerBehaviour PlaceTower(Vector3Int position, Vector3 worldPosition)

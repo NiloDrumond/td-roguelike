@@ -12,4 +12,5 @@ public class TowerData : ScriptableObject
     public float BaseRange;
     public float BaseDamage;
     public float BaseFirerate;
+    [SerializeReference] public IDamageMethod DamageMethod;
 }
