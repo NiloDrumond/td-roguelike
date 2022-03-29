@@ -7,8 +7,6 @@ using UnityEngine.Jobs;
 
 public class GameLoopManager : MonoBehaviour
 {
-    
-    
     public static Vector3[] WaypointPositions;
     public static float[] WaypointDistances;
     public static float[] WaypointDistancesToEnd;
@@ -19,7 +17,7 @@ public class GameLoopManager : MonoBehaviour
     private static Queue<Enemy> enemiesToRemove;
     private static Queue<int> enemyIDsToSummon;
 
-    public bool LoopShouldEnd;
+    public static bool LoopShouldEnd;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +25,12 @@ public class GameLoopManager : MonoBehaviour
         damageData = new Queue<EnemyDamageData>();
         enemyIDsToSummon = new Queue<int>();
         enemiesToRemove = new Queue<Enemy>();
-        InputManager.Init();
+
+        PlayerManager.Init();
         EntityManager.Init();
         TowerManager.Init();
+        InputManager.Init();
 
-       
         pathController = GameObject.Find("Grid/Path").GetComponent<PathController>();
 
         WaypointPositions = pathController.GetWorldArray();
@@ -62,6 +61,7 @@ public class GameLoopManager : MonoBehaviour
 	{
         EnqueueEnemyIDToSummon(1);
     }
+
 
     // Update is called once per frame
    IEnumerator GameLoop()
@@ -112,7 +112,8 @@ public class GameLoopManager : MonoBehaviour
                 if(EntityManager.EnemiesInGame[i].WaypointIndex == WaypointPositions.Length)
 				{
                     EnqueueEnemyToRemove(EntityManager.EnemiesInGame[i]);
-				}
+                    PlayerManager.ReceiveDamage(EntityManager.EnemiesInGame[i].MaxHealth);
+                }
 
             }
 
