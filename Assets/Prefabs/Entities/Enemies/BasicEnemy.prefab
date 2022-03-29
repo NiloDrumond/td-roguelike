@@ -97,9 +97,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaypointIndex: 0
+  DamageResistance: 1
   MaxHealth: 5
   Health: 0
-  Speed: 0.25
+  Speed: 0.5
   ID: 0
 --- !u!61 &4509262923954405210
 BoxCollider2D:
