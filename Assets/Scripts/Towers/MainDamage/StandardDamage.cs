@@ -17,6 +17,8 @@ public class StandardDamage : MonoBehaviour, IDamageMethod
 
 	public void DamageTick(Enemy target)
 	{
+		if (target == null) return;
+
 		if(delay > 0f)
 		{
 			delay -= Time.deltaTime;
