@@ -3,71 +3,48 @@ using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class PathController : MonoBehaviour
 {
-    [SerializeField] private Tilemap tileMap = null;
-    [SerializeField] private Path path = null;
-    [SerializeField] private Tile flagTile = null;
+    [SerializeField] private Grid grid;
+    [SerializeField] public Path Path;
 
+	private void Awake()
+	{
+        grid = GameObject.Find("Grid").GetComponent<Grid>();
+	}
 
-    private void Awake()
+	// For editing
+	public bool IsSelected = false;
+
+	public void AddWaypoint(Vector3Int cell)
     {
-        RenderWaypoints();
-    }
-
-    void Start()
-    {
-        tileMap = gameObject.GetComponent<Tilemap>();
-        RenderWaypoints();
-    }
-
-    public void AddWaypoint(Vector3Int cell)
-    {
-        path.waypoints.Add(cell);
-        RenderWaypoints();
+        Path.waypoints.Add(cell);
     }
 
 
     public void RemoveWaypoint(Vector3Int cell)
     {
-        path.waypoints.Remove(cell);
-        RenderWaypoints();
+        Path.waypoints.Remove(cell);
 
     }
 
     private Vector3 GetCellCenter(Vector3Int cell)
     {
-        if (tileMap != null)
+        if (grid != null)
         {
-            Vector3 worldPosition = tileMap.CellToWorld(cell);
+            Vector3 worldPosition = grid.CellToWorld(cell);
             worldPosition.y += 0.16f;
             return worldPosition;
         }
         return cell;
     }
 
-    private void RenderWaypoints()
-    {
-        // disabling for now
-        return;
-
-        if (path != null && tileMap != null && Debug.isDebugBuild)
-        {
-            tileMap.ClearAllTiles();
-            foreach (Vector3Int waypoint in path.waypoints)
-            {
-                tileMap.SetTile(waypoint, flagTile);
-            }
-        }
-    }
-
     public Vector3[] GetWorldArray()
     {
-        Vector3[] positions = new Vector3[path.waypoints.Count];
-		for (int i = 0; i < path.waypoints.Count; i++)
+        Vector3[] positions = new Vector3[Path.waypoints.Count];
+		for (int i = 0; i < Path.waypoints.Count; i++)
 		{
-            positions[i] = tileMap.CellToWorld(path.waypoints[i]);
+            positions[i] = grid.CellToWorld(Path.waypoints[i]);
             positions[i].y += GlobalConstants.TILE_HEIGHT;
             positions[i].z = 2;
 
@@ -75,13 +52,13 @@ public class PathController : MonoBehaviour
         return positions;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        if (path != null && path.waypoints.Count > 1)
+        if (Path != null && Path.waypoints.Count > 1 && IsSelected)
         {
 
-            Vector3Int last = path.waypoints[0];
-            foreach (Vector3Int waypoint in path.waypoints)
+            Vector3Int last = Path.waypoints[0];
+            foreach (Vector3Int waypoint in Path.waypoints)
             {
                 // using if to avoid first case
                 if (!waypoint.Equals(last))
@@ -92,6 +69,24 @@ public class PathController : MonoBehaviour
                 }
             }
         }
+    }
 
+    private void OnDrawGizmosSelected()
+    {
+        if (Path != null && Path.waypoints.Count > 1)
+        {
+
+            Vector3Int last = Path.waypoints[0];
+            foreach (Vector3Int waypoint in Path.waypoints)
+            {
+                // using if to avoid first case
+                if (!waypoint.Equals(last))
+                {
+                    Gizmos.color = Color.blue;
+                    DrawArrow.ForGizmo(GetCellCenter(last), GetCellCenter(waypoint));
+                    last = waypoint;
+                }
+            }
+        }
     }
 }

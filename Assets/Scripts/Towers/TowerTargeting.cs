@@ -34,16 +34,17 @@ public class TowerTargeting
 		NativeArray<int> enemyToIndex = new NativeArray<int>(new int[] { -1 }, Allocator.TempJob);
 
 
-		int waypointsMaxIndex = GameLoopManager.WaypointPositions.Length - 1;
+		
 
 		for (int i = 0; i < enemiesToCalculate.Length; i++)
 		{
 			Enemy enemy = enemiesInRange[i].GetComponent<Enemy>();
 			int enemyIndexInList = EntityManager.EnemiesInGame.FindIndex(x => x == enemy);
-			
+			int waypointsMaxIndex = PathsManager.WaypointPositions[enemy.PathIndex].Length - 1;
+
 			// Mathf.Min for the case when the enemy reaches the end making its waypointIndex == waypoints.length
-			float distanceToEnd = GameLoopManager.WaypointDistancesToEnd[Mathf.Min(enemy.WaypointIndex, waypointsMaxIndex)];
-			Vector3 waypointPosition = GameLoopManager.WaypointPositions[Mathf.Min(enemy.WaypointIndex, waypointsMaxIndex)];
+			float distanceToEnd = PathsManager.WaypointDistancesToEnd[enemy.PathIndex][Mathf.Min(enemy.WaypointIndex, waypointsMaxIndex)];
+			Vector3 waypointPosition = PathsManager.WaypointPositions[enemy.PathIndex][Mathf.Min(enemy.WaypointIndex, waypointsMaxIndex)];
 
 			enemiesToCalculate[i] = new EnemyData(new Vector3(enemy.transform.position.x, enemy.transform.position.y, 0), enemy.WaypointIndex, enemy.Health, enemyIndexInList, distanceToEnd, waypointPosition);
 		}
