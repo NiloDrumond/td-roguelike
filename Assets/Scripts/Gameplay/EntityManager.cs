@@ -37,34 +37,34 @@ public class EntityManager : MonoBehaviour
 		}
 	}
 
-	public static Enemy SummonEnemy(int enemyId)
+	public static Enemy SummonEnemy(EnemyCreateData data)
 	{
 		Enemy summonedEnemy = null;
 
-		if (EnemyPrefabs.ContainsKey(enemyId))
+		if (EnemyPrefabs.ContainsKey(data.EnemyId))
 		{
-			Queue<Enemy> referencedQueue = EnemyObjectPools[enemyId];
+			Queue<Enemy> referencedQueue = EnemyObjectPools[data.EnemyId];
 			if(referencedQueue.Count > 0)
 			{
 				summonedEnemy = referencedQueue.Dequeue();
-				summonedEnemy.Init();
+				summonedEnemy.Init(data.PathIndex);
 				summonedEnemy.gameObject.SetActive(true);
 			} else
 			{
-				GameObject newEnemy = Instantiate(EnemyPrefabs[enemyId], GameLoopManager.WaypointPositions[0], Quaternion.identity, enemiesParent.transform);
+				GameObject newEnemy = Instantiate(EnemyPrefabs[data.EnemyId], PathsManager.WaypointPositions[0][0], Quaternion.identity, enemiesParent.transform);
 				summonedEnemy = newEnemy.GetComponent<Enemy>();
-				summonedEnemy.Init();
+				summonedEnemy.Init(data.PathIndex);
 			}
 		} else
 		{
-			Debug.LogWarning($"ENTITYSUMMONER: enemy with id {enemyId} not found");
+			Debug.LogWarning($"ENTITYSUMMONER: enemy with id {data.EnemyId} not found");
 			return null;
 		}
 		
 		if(!EnemiesInGame.Contains(summonedEnemy)) EnemiesInGame.Add(summonedEnemy);
 		if(!EnemiesInGameTransform.Contains(summonedEnemy.transform))  EnemiesInGameTransform.Add(summonedEnemy.transform);
 		if (!EnemyTransformMap.ContainsKey(summonedEnemy.transform)) EnemyTransformMap.Add(summonedEnemy.transform, summonedEnemy);
-		summonedEnemy.ID = enemyId;
+		summonedEnemy.ID = data.EnemyId;
 		return summonedEnemy;
 	}
 
@@ -77,3 +77,15 @@ public class EntityManager : MonoBehaviour
 		EnemiesInGameTransform.Remove(enemy.transform);
 	}
 }
+
+public struct EnemyCreateData 
+{
+	public int EnemyId;
+	public int PathIndex;
+
+	public EnemyCreateData(int enemyId, int pathIndex)
+	{
+		EnemyId = enemyId;
+		PathIndex = pathIndex;
+	}
+};

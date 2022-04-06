@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Michsky.UI.ModernUIPack; // namespace
+using Michsky.UI.ModernUIPack;
 using UnityEngine.EventSystems;
 
 public class ButtonController : MonoBehaviour, IPointerClickHandler

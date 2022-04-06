@@ -10,14 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d839bf8a1725f31478df0e49e56c92e4, type: 3}
-  m_Name: TestPath
+  m_Name: Path_3
   m_EditorClassIdentifier: 
-  waypoints:
-  - {x: 5, y: 2, z: 0}
-  - {x: 5, y: 2, z: 0}
-  - {x: 5, y: 2, z: 0}
-  - {x: 2, y: 2, z: 0}
-  - {x: 2, y: -1, z: 0}
-  - {x: -5, y: -1, z: 0}
-  - {x: -5, y: -4, z: 0}
-  - {x: -8, y: -4, z: 0}
+  waypoints: []

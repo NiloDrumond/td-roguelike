@@ -7,59 +7,40 @@ using UnityEngine.Jobs;
 
 public class GameLoopManager : MonoBehaviour
 {
-    public static Vector3[] WaypointPositions;
-    public static float[] WaypointDistances;
-    public static float[] WaypointDistancesToEnd;
-    private static PathController pathController;
-
     private static Queue<EnemyDamageData> damageData;
 
     private static Queue<Enemy> enemiesToRemove;
-    private static Queue<int> enemyIDsToSummon;
+    private static Queue<EnemyCreateData> enemiesToSummon;
 
     public static bool LoopShouldEnd;
     // Start is called before the first frame update
     void Start()
     {
-
         damageData = new Queue<EnemyDamageData>();
-        enemyIDsToSummon = new Queue<int>();
+        enemiesToSummon = new Queue<EnemyCreateData>();
         enemiesToRemove = new Queue<Enemy>();
 
+        PathsManager.Init();
         PlayerManager.Init();
         EntityManager.Init();
         TowerManager.Init();
         InputManager.Init();
 
-        pathController = GameObject.Find("Grid/Path").GetComponent<PathController>();
-
-        WaypointPositions = pathController.GetWorldArray();
-        WaypointDistances = new float[Mathf.Max(0, WaypointPositions.Length - 1)];
-		for (int i = 0; i < WaypointDistances.Length; i++)
-		{
-            WaypointDistances[i] = Vector3.Distance(WaypointPositions[i], WaypointPositions[i + 1]); 
-		}
-
-        WaypointDistancesToEnd = new float[WaypointPositions.Length];
-        for (int i = 0; i < WaypointDistances.Length; i++)
-		{
-            float distance = 0;
-            for(int j = i; j < WaypointDistances.Length; j++)
-			{
-                distance += WaypointDistances[j];
-            }
-            WaypointDistancesToEnd[i] = distance;
-        }
-
-
-
+        if (GameState.Instance.IsEditing) return;
         StartCoroutine(GameLoop());
         InvokeRepeating("SummonTest", 0f, 1f);
     }
+    
+    private static int pathIndex = 0;
 
     void SummonTest()
 	{
-        EnqueueEnemyIDToSummon(1);
+        EnqueueEnemyToSummon(new EnemyCreateData(0, pathIndex));
+        pathIndex++;
+        if(pathIndex == PathsManager.PathsCount)
+		{
+            pathIndex = 0;
+		}
     }
 
 
@@ -70,11 +51,11 @@ public class GameLoopManager : MonoBehaviour
 		{
             // Spawn Enemies
             
-            if(enemyIDsToSummon.Count > 0)
+            if(enemiesToSummon.Count > 0)
 			{
-                for(int i = 0; i < enemyIDsToSummon.Count; i++)
+                for(int i = 0; i < enemiesToSummon.Count; i++)
 				{
-                    EntityManager.SummonEnemy(enemyIDsToSummon.Dequeue());
+                    EntityManager.SummonEnemy(enemiesToSummon.Dequeue());
 				}
 			}
 
@@ -82,55 +63,13 @@ public class GameLoopManager : MonoBehaviour
 
             TowerManager.SpawnTowers();
 
-            // Move Enemies
-
-            NativeArray<Vector3> waypointsToUse = new NativeArray<Vector3>(WaypointPositions, Allocator.TempJob);
-            NativeArray<int> waypointIndices = new NativeArray<int>(EntityManager.EnemiesInGame.Count, Allocator.TempJob);
-            NativeArray<float> enemySpeeds = new NativeArray<float>(EntityManager.EnemiesInGame.Count, Allocator.TempJob);
-            TransformAccessArray enemyAccess = new TransformAccessArray(EntityManager.EnemiesInGameTransform.ToArray(), 2);
-
-			for (int i = 0; i < EntityManager.EnemiesInGame.Count; i++)
-			{
-                enemySpeeds[i] = EntityManager.EnemiesInGame[i].Speed;
-                waypointIndices[i] = EntityManager.EnemiesInGame[i].WaypointIndex;
-			}
-
-            MoveEnemiesJob moveJob = new MoveEnemiesJob {
-                enemySpeeds = enemySpeeds,
-                WaypointIndex = waypointIndices,
-                WaypointPositions = waypointsToUse,
-                deltaTime = Time.deltaTime
-            };
-
-            JobHandle moveJobHandle = moveJob.Schedule(enemyAccess);
-            moveJobHandle.Complete();
-
-			for (int i = 0; i < EntityManager.EnemiesInGame.Count; i++)
-			{
-                EntityManager.EnemiesInGame[i].WaypointIndex = waypointIndices[i];
-
-                if(EntityManager.EnemiesInGame[i].WaypointIndex == WaypointPositions.Length)
-				{
-                    EnqueueEnemyToRemove(EntityManager.EnemiesInGame[i]);
-                    PlayerManager.ReceiveDamage(EntityManager.EnemiesInGame[i].MaxHealth);
-                }
-
-            }
-
-            waypointsToUse.Dispose();
-            waypointIndices.Dispose();
-            enemySpeeds.Dispose();
-            enemyAccess.Dispose();
-
             // Tick Towers
 
-            foreach(TowerBehaviour tower in TowerManager.TowersInGame)
-			{
+            foreach (TowerBehaviour tower in TowerManager.TowersInGame)
+            {
                 tower.Target = TowerTargeting.GetTarget(tower, TowerTargeting.TargetType.First);
                 tower.Tick();
-			}
-
-            // Apply Effects
+            }
 
             // Damage Enemies
 
@@ -141,13 +80,68 @@ public class GameLoopManager : MonoBehaviour
                     EnemyDamageData currentDamageData = damageData.Dequeue();
                     currentDamageData.TargetedEnemy.Health -= currentDamageData.TotalDamage / currentDamageData.Resistance;
 
-                    if(currentDamageData.TargetedEnemy.Health <= 0f)
-					{
+                    if (currentDamageData.TargetedEnemy.Health <= 0f)
+                    {
                         EnqueueEnemyToRemove(currentDamageData.TargetedEnemy);
-					}
+                    }
                 }
             }
 
+            // Move Enemies
+            NativeArray<Vector3> waypointPositions = new NativeArray<Vector3>(PathsManager.MaxIndex  + 1, Allocator.TempJob);
+            NativeArray<int> waypointIndices = new NativeArray<int>(EntityManager.EnemiesInGame.Count, Allocator.TempJob);
+            NativeArray<int> pathIndices = new NativeArray<int>(EntityManager.EnemiesInGame.Count, Allocator.TempJob);
+            NativeArray<float> enemySpeeds = new NativeArray<float>(EntityManager.EnemiesInGame.Count, Allocator.TempJob);
+            TransformAccessArray enemyAccess = new TransformAccessArray(EntityManager.EnemiesInGameTransform.ToArray(), 2);
+
+			for (int i = 0; i < PathsManager.WaypointPositions.Length; i++)
+			{
+				for (int j = 0; j < PathsManager.WaypointPositions[i].Length; j++)
+				{
+                    waypointPositions[j * PathsManager.WaypointPositions.Length + i] = PathsManager.WaypointPositions[i][j];
+                }
+            }
+
+			for (int i = 0; i < EntityManager.EnemiesInGame.Count; i++)
+			{
+                enemySpeeds[i] = EntityManager.EnemiesInGame[i].Speed;
+                waypointIndices[i] = EntityManager.EnemiesInGame[i].WaypointIndex;
+                pathIndices[i] = EntityManager.EnemiesInGame[i].PathIndex;
+
+            }
+
+            MoveEnemiesJob moveJob = new MoveEnemiesJob {
+                enemySpeeds = enemySpeeds,
+                WaypointIndices = waypointIndices,
+                WaypointPositions = waypointPositions,
+                deltaTime = Time.deltaTime,
+                PathIndices = pathIndices,
+                PathsCount = PathsManager.PathsCount
+            };
+
+            JobHandle moveJobHandle = moveJob.Schedule(enemyAccess);
+            moveJobHandle.Complete();
+
+			for (int i = 0; i < EntityManager.EnemiesInGame.Count; i++)
+			{
+                Enemy enemy = EntityManager.EnemiesInGame[i];
+                enemy.WaypointIndex = waypointIndices[i];
+
+                if(enemy.WaypointIndex == PathsManager.PathSizes[enemy.PathIndex])
+				{
+                    EnqueueEnemyToRemove(enemy);
+                    PlayerManager.ReceiveDamage(enemy.MaxHealth);
+                }
+
+            }
+
+            pathIndices.Dispose();
+            waypointPositions.Dispose();
+            waypointIndices.Dispose();
+            enemySpeeds.Dispose();
+            enemyAccess.Dispose();
+
+            // Apply Effects
 
             // Remove Enemies
 
@@ -172,9 +166,9 @@ public class GameLoopManager : MonoBehaviour
         damageData.Enqueue(data);
 	}
 
-    public static void EnqueueEnemyIDToSummon(int id)
+    public static void EnqueueEnemyToSummon(EnemyCreateData data)
 	{
-        enemyIDsToSummon.Enqueue(id);
+        enemiesToSummon.Enqueue(data);
 	}
 
     public static void EnqueueEnemyToRemove(Enemy enemy)
@@ -188,7 +182,10 @@ public class GameLoopManager : MonoBehaviour
 public struct MoveEnemiesJob: IJobParallelForTransform
 {
     [NativeDisableParallelForRestriction]
-    public NativeArray<int> WaypointIndex;
+    public NativeArray<int> WaypointIndices;
+
+    [NativeDisableParallelForRestriction]
+    public NativeArray<int> PathIndices;
 
     [NativeDisableParallelForRestriction]
     public NativeArray<float> enemySpeeds;
@@ -196,18 +193,22 @@ public struct MoveEnemiesJob: IJobParallelForTransform
     [NativeDisableParallelForRestriction]
     public NativeArray<Vector3> WaypointPositions;
 
+    [NativeDisableParallelForRestriction]
+    public int PathsCount;
+
+
     public float deltaTime;
 
     public void Execute(int index, TransformAccess transform)
 	{
-        if(WaypointIndex[index] < WaypointPositions.Length)
+        if (PathIndices[index] + PathsCount * WaypointIndices[index] < WaypointPositions.Length)
 		{
-            Vector3 positionToMoveTo = WaypointPositions[WaypointIndex[index]];
+            Vector3 positionToMoveTo = WaypointPositions[PathIndices[index] + PathsCount * WaypointIndices[index]];
             transform.position = Vector3.MoveTowards(transform.position, positionToMoveTo, enemySpeeds[index] * deltaTime);
 
             if (transform.position == positionToMoveTo)
             {
-                WaypointIndex[index]++;
+                WaypointIndices[index]++;
             }
         }   
 	}
