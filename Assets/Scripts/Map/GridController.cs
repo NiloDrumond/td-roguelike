@@ -11,13 +11,13 @@ public class GridController : MonoBehaviour
 	[SerializeField] private Tilemap baseMap = null;
 	[SerializeField] private Tilemap interactiveMap = null;
 	[SerializeField] private Tilemap towersMap = null;
+	[SerializeField] private Tilemap suppliesMap = null;
 	[SerializeField] private IsometricRuleTile hoverTile = null;
 	[SerializeField] private IsometricRuleTile highHoverTile = null;
 	[SerializeField] private Tile EmptyTile = null;
 
-
 	private Vector3Int previousCursorPosition = new Vector3Int();
-
+	private int score = 0;
 	private void OnMouseOver()
 	{
 		if (InputManager.IsPointerOverUIObject())
@@ -44,14 +44,35 @@ public class GridController : MonoBehaviour
 			Vector3Int pos = top.First;
 			pos.z += 1;
 			var tile = towersMap.GetTile(pos);
-			if (tile == null)
+
+			if (tile == null && score >= 10)
 			{
 				Vector3 worldPosition = towersMap.CellToWorld(pos);
 				bool success = TowerManager.PlaceTower(new Vector3(worldPosition.x, worldPosition.y, pos.z));
-
+				score -= 10;
+				ScoreManager.instance.AddPoint(score);
 				if (success)
 				{
 					towersMap.SetTile(pos, EmptyTile);
+				}
+			}
+		}
+
+		if (Input.GetMouseButtonUp(2) && !GameState.Instance.IsEditing)
+		{
+			var top = GetTopTile(mousePos);
+			Vector3Int pos = top.First;
+			pos.z += 1;
+			var tile = suppliesMap.GetTile(pos);
+			if (tile == null)
+			{
+				Vector3 worldPosition = suppliesMap.CellToWorld(pos);
+				bool success = SupplyManager.PlaceSupply(new Vector3(worldPosition.x, worldPosition.y, pos.z));
+				score += 5;
+				ScoreManager.instance.AddPoint(score);
+				if (success)
+				{
+					suppliesMap.SetTile(pos, EmptyTile);
 				}
 			}
 		}

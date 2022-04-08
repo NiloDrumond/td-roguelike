@@ -4,7 +4,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Jobs;
-
+using UnityEngine.UI;
 public class GameLoopManager : MonoBehaviour
 {
     private static Queue<EnemyDamageData> damageData;
@@ -13,6 +13,7 @@ public class GameLoopManager : MonoBehaviour
     private static Queue<EnemyCreateData> enemiesToSummon;
 
     public static bool LoopShouldEnd;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,7 @@ public class GameLoopManager : MonoBehaviour
         PlayerManager.Init();
         EntityManager.Init();
         TowerManager.Init();
+        SupplyManager.Init();
         InputManager.Init();
 
         if (GameState.Instance.IsEditing) return;
@@ -49,6 +51,7 @@ public class GameLoopManager : MonoBehaviour
 	{
         while(LoopShouldEnd == false)
 		{
+
             // Spawn Enemies
             
             if(enemiesToSummon.Count > 0)
@@ -58,6 +61,12 @@ public class GameLoopManager : MonoBehaviour
                     EntityManager.SummonEnemy(enemiesToSummon.Dequeue());
 				}
 			}
+
+            // Spawn Supplies
+
+            SupplyManager.SpawnSupplies();
+
+            // Tick Supplies
 
             // Spawn Towers
 
@@ -176,7 +185,6 @@ public class GameLoopManager : MonoBehaviour
         enemiesToRemove.Enqueue(enemy);
     }
 
-   
 }
 
 public struct MoveEnemiesJob: IJobParallelForTransform

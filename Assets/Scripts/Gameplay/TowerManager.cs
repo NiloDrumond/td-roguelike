@@ -21,6 +21,7 @@ public class TowerManager : MonoBehaviour
 			TowersInGame = new List<TowerBehaviour>();
 			TowerData[] towerResources = Resources.LoadAll<TowerData>("Entities/Towers");
 			TowerPrefabs = new Dictionary<int, GameObject>();
+
 			for (int i = 0; i < towerResources.Length; i++)
 			{
 				TowerPrefabs.Add(towerResources[i].TowerID, towerResources[i].TowerPrefab);
