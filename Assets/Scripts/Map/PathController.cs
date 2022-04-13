@@ -54,38 +54,32 @@ public class PathController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (Path != null && Path.waypoints.Count > 1 && IsSelected)
+        if (Path != null && IsSelected)
         {
-
-            Vector3Int last = Path.waypoints[0];
-            foreach (Vector3Int waypoint in Path.waypoints)
-            {
-                // using if to avoid first case
-                if (!waypoint.Equals(last))
-                {
-                    Gizmos.color = Color.blue;
-                    DrawArrow.ForGizmo(GetCellCenter(last), GetCellCenter(waypoint));
-                    last = waypoint;
+            Gizmos.color = Color.blue;
+            for (int i = 0; i < Path.waypoints.Count; i++)
+			{
+                if(i > 0)
+				{
+                    DrawArrow.ForGizmo(GetCellCenter(Path.waypoints[i-1]), GetCellCenter(Path.waypoints[i]));
                 }
-            }
+                Gizmos.DrawWireSphere(GetCellCenter(Path.waypoints[i]), 0.05f);
+			}
         }
     }
 
     private void OnDrawGizmosSelected()
     {
-        if (Path != null && Path.waypoints.Count > 1)
+        if (Path != null)
         {
-
-            Vector3Int last = Path.waypoints[0];
-            foreach (Vector3Int waypoint in Path.waypoints)
+            Gizmos.color = Color.blue;
+            for (int i = 0; i < Path.waypoints.Count; i++)
             {
-                // using if to avoid first case
-                if (!waypoint.Equals(last))
+                if (i > 0)
                 {
-                    Gizmos.color = Color.blue;
-                    DrawArrow.ForGizmo(GetCellCenter(last), GetCellCenter(waypoint));
-                    last = waypoint;
+                    DrawArrow.ForGizmo(GetCellCenter(Path.waypoints[i - 1]), GetCellCenter(Path.waypoints[i]));
                 }
+                Gizmos.DrawWireSphere(GetCellCenter(Path.waypoints[i]), 0.05f);
             }
         }
     }
