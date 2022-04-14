@@ -8,6 +8,7 @@ public class TowerManager : MonoBehaviour
 	private static Queue<Vector3> TowersToDestroy;
 	public static List<TowerBehaviour> TowersInGame;
 	public static Dictionary<int, GameObject> TowerPrefabs;
+	private static TowerData[] towerResources;
 	public static int TowerToBuild = 0;
 
 	private static bool isInitialized = false;
@@ -19,7 +20,7 @@ public class TowerManager : MonoBehaviour
 		if (!isInitialized)
 		{
 			TowersInGame = new List<TowerBehaviour>();
-			TowerData[] towerResources = Resources.LoadAll<TowerData>("Entities/Towers");
+			towerResources = Resources.LoadAll<TowerData>("Entities/Towers");
 			TowerPrefabs = new Dictionary<int, GameObject>();
 
 			for (int i = 0; i < towerResources.Length; i++)
@@ -37,7 +38,7 @@ public class TowerManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogWarning("ENTITYSUMMONER: this class has already initialized");
+			Debug.LogWarning("TOWERMANAGER: this class has already initialized");
 		}
 	}
 
@@ -51,8 +52,12 @@ public class TowerManager : MonoBehaviour
 	{
 		if (TowerToBuild >= 0)
 		{
-			TowerSpawnData data = new TowerSpawnData() { ID = TowerToBuild, Position = worldPosition };
-			TowersToSpawn.Enqueue(data);
+			TowerSpawnData spawnData = new TowerSpawnData() { ID = TowerToBuild, Position = worldPosition };
+			TowerData data = towerResources[TowerToBuild];
+			Supplies cost = new Supplies(data.MineralsCost);
+			bool enoughSupplies = PlayerManager.SpendSupplies(cost);
+			if (!enoughSupplies) return false;
+			TowersToSpawn.Enqueue(spawnData);
 			return true;
 		}
 		return false;

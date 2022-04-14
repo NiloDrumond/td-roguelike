@@ -45,12 +45,10 @@ public class GridController : MonoBehaviour
 			pos.z += 1;
 			var tile = towersMap.GetTile(pos);
 
-			if (tile == null && score >= 10)
+			if (tile == null)
 			{
 				Vector3 worldPosition = towersMap.CellToWorld(pos);
 				bool success = TowerManager.PlaceTower(new Vector3(worldPosition.x, worldPosition.y, pos.z));
-				score -= 10;
-				ScoreManager.instance.AddPoint(score);
 				if (success)
 				{
 					towersMap.SetTile(pos, EmptyTile);
@@ -58,6 +56,7 @@ public class GridController : MonoBehaviour
 			}
 		}
 
+		// Middle-click -> place supply
 		if (Input.GetMouseButtonUp(2) && !GameState.Instance.IsEditing)
 		{
 			var top = GetTopTile(mousePos);
@@ -67,9 +66,7 @@ public class GridController : MonoBehaviour
 			if (tile == null)
 			{
 				Vector3 worldPosition = suppliesMap.CellToWorld(pos);
-				bool success = SupplyManager.PlaceSupply(new Vector3(worldPosition.x, worldPosition.y, pos.z));
-				score += 5;
-				ScoreManager.instance.AddPoint(score);
+				bool success = GeneratorManager.PlaceSupply(new Vector3(worldPosition.x, worldPosition.y, pos.z));
 				if (success)
 				{
 					suppliesMap.SetTile(pos, EmptyTile);

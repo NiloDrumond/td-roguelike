@@ -39,8 +39,4 @@ public class TowerBehaviour: MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmos()
-	{
-        Gizmos.DrawWireSphere(gameObject.transform.position, Range);
-	}
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fcaf97519051c34790e0ea4ae85cd83, type: 3}
-  m_Name: Strawberry
+  m_Name: Mine
   m_EditorClassIdentifier: 
-  SupplyPrefab: {fileID: 8364489386729022879, guid: 9bdfd20c7c52b7446b8a5f05af88ea53, type: 3}
-  SupplyID: 0
+  GeneratorPrefab: {fileID: 0}
+  GeneratorID: 0

@@ -5,6 +5,7 @@ using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Jobs;
 using UnityEngine.UI;
+
 public class GameLoopManager : MonoBehaviour
 {
     private static Queue<EnemyDamageData> damageData;
@@ -25,7 +26,7 @@ public class GameLoopManager : MonoBehaviour
         PlayerManager.Init();
         EntityManager.Init();
         TowerManager.Init();
-        SupplyManager.Init();
+        GeneratorManager.Init();
         InputManager.Init();
 
         if (GameState.Instance.IsEditing) return;
@@ -64,9 +65,14 @@ public class GameLoopManager : MonoBehaviour
 
             // Spawn Supplies
 
-            SupplyManager.SpawnSupplies();
+            GeneratorManager.SpawnGenerators();
 
             // Tick Supplies
+
+            foreach(GeneratorBehaviour generator in GeneratorManager.GeneratorInGame)
+			{
+                generator.Tick();
+			}
 
             // Spawn Towers
 
@@ -161,6 +167,10 @@ public class GameLoopManager : MonoBehaviour
                     EntityManager.RemoveEnemy(enemiesToRemove.Dequeue());
                 }
             }
+
+            // Remove Generators
+
+            GeneratorManager.RemoveGenerators();
 
             // Remove Towers
 

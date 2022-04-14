@@ -19,4 +19,12 @@ public class Debugger
 			Debug.Log(item);
 		}
 	}
+
+	public static void Log<TKey, TValue>(Dictionary<TKey, TValue> dict)
+	{
+		foreach(var pair in dict)
+		{
+			Debug.Log($"{pair.Key}: {pair.Value}");
+		}
+	}
 }
