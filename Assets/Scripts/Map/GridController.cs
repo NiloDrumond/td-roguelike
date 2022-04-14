@@ -18,6 +18,8 @@ public class GridController : MonoBehaviour
 
 	private Vector3Int previousCursorPosition = new Vector3Int();
 	private int score = 0;
+
+
 	private void OnMouseOver()
 	{
 		if (InputManager.IsPointerOverUIObject())
@@ -32,15 +34,18 @@ public class GridController : MonoBehaviour
 			var top = GetTopTile(mousePos);
 			Vector3Int pos = top.First;
 			bool isHigh = top.Second;
+			Vector3Int high = new Vector3Int(pos.x - 100, pos.y - 100, pos.z + 100);
 			interactiveMap.SetTile(previousCursorPosition, null); // Remove old hoverTile
-			interactiveMap.SetTile(pos, isHigh ? highHoverTile : hoverTile);
-			previousCursorPosition = pos;
+			interactiveMap.SetTile(high, isHigh ? highHoverTile : hoverTile);
+			previousCursorPosition = high;
 		}
 
 		// Left-click -> place tower
 		if (Input.GetMouseButtonUp(0) && !GameState.Instance.IsEditing)
 		{
 			var top = GetTopTile(mousePos);
+			Debug.Log(mousePos);
+			Debug.Log(top.First);
 			Vector3Int pos = top.First;
 			pos.z += 1;
 			var tile = towersMap.GetTile(pos);
@@ -117,30 +122,29 @@ public class GridController : MonoBehaviour
 	public static Vector3Int GetMousePosition(Grid grid, Tilemap tilemap)
 	{
 		Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		mouseWorldPos.y -= 0.08f;
 
-		Vector3Int gridCell = grid.WorldToCell(mouseWorldPos);
-		gridCell.x += gridCell.z;
-		gridCell.y += gridCell.z;
-		gridCell.z = 0;
+		Vector3Int gridCell = tilemap.WorldToCell(mouseWorldPos);
+		//gridCell.x += gridCell.z;
+		//gridCell.y += gridCell.z;
+		//gridCell.z = 0;
 
 		// Reference:
 		// https://answers.unity.com/questions/1622564/selecting-a-tile-with-z-as-y-isometric-tilemaps.html
 		// The problem will keep happening because there are different heights of tiles
 		// Another case to take into consideration is the bottom most tile of the grid
 
-		mouseWorldPos.y -= 0.8f;
-		for (int z = 10; z > -1; z--)
-		{
-			gridCell = grid.WorldToCell(mouseWorldPos);
-			var tile = tilemap.GetTile(new Vector3Int(gridCell.x, gridCell.y, z));
+		//mouseWorldPos.y -= 1.44f;
+		//for (int z = 10; z >= 0; z--)
+		//{
+		//	gridCell = tilemap.WorldToCell(mouseWorldPos);
+		//	var tile = tilemap.GetTile(new Vector3Int(gridCell.x, gridCell.y, z));
 
-			if (tile != null)
-			{
-				break;
-			}
-			mouseWorldPos.y += 0.08f;
-		}
+		//	if (tile != null)
+		//	{
+		//		break;
+		//	}
+		//	mouseWorldPos.y += 0.16f;
+		//}
 
 		gridCell.x += gridCell.z;
 		gridCell.y += gridCell.z;
