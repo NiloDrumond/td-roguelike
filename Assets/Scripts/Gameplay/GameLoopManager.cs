@@ -35,15 +35,21 @@ public class GameLoopManager : MonoBehaviour
     }
     
     private static int pathIndex = 0;
+    private static int enemyIndex = 0;
 
     void SummonTest()
 	{
-        EnqueueEnemyToSummon(new EnemyCreateData(0, pathIndex));
+        EnqueueEnemyToSummon(new EnemyCreateData(enemyIndex, pathIndex));
         pathIndex++;
-        if(pathIndex == PathsManager.PathsCount)
+        enemyIndex++;
+        if (pathIndex == PathsManager.PathsCount)
 		{
             pathIndex = 0;
 		}
+        if (enemyIndex == EntityManager.EnemyPrefabs.Count)
+        {
+            enemyIndex = 0;
+        }
     }
 
 

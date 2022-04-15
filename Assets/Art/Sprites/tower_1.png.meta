@@ -1,34 +1,25 @@
 fileFormatVersion: 2
-guid: 43cda42b8e2431645b0ec45cbdbc24bc
+guid: d115133d22190ab41b9076379b54e4a3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4804446361586417100
-    second: map_0
+      213: 2277204698151690033
+    second: tower_1_0
   - first:
-      213: -7688356529983298438
-    second: map_1
+      213: -3704938143919880969
+    second: tower_1_1
   - first:
-      213: -6113606119065762621
-    second: map_2
+      213: -5444683889563288029
+    second: tower_1_2
   - first:
-      213: -1849047750971238059
-    second: map_3
+      213: 1511240722630027674
+    second: tower_1_3
   - first:
-      213: -3632615384808042850
-    second: map_4
+      213: -1847317640553318008
+    second: tower_1_4
   - first:
-      213: 9088407016249567572
-    second: map_5
-  - first:
-      213: -4911017183162878569
-    second: map_6
-  - first:
-      213: -242768484182980809
-    second: map_7
-  - first:
-      213: 6657255337997859584
-    second: map_8
+      213: 6253796598466134599
+    second: tower_1_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -130,190 +121,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: map_0
+      name: tower_1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccdb6c4c282dca240800000000000000
-      internalID: 4804446361586417100
+      spriteID: 13f9e2a9b914a9f10800000000000000
+      internalID: 2277204698151690033
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_1
+      name: tower_1_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 21
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a746acb78787d4590800000000000000
-      internalID: -7688356529983298438
+      spriteID: 7f44cd0436a659cc0800000000000000
+      internalID: -3704938143919880969
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_2
+      name: tower_1_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 42
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c44e6040ab182ba0800000000000000
-      internalID: -6113606119065762621
+      spriteID: 32eb94089d89074b0800000000000000
+      internalID: -5444683889563288029
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_3
+      name: tower_1_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 63
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 559df9efddcd656e0800000000000000
-      internalID: -1849047750971238059
+      spriteID: a99a77a2e6109f410800000000000000
+      internalID: 1511240722630027674
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_4
+      name: tower_1_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 84
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9ec5eecd8b569dc0800000000000000
-      internalID: -3632615384808042850
+      spriteID: 889b187b4620d56e0800000000000000
+      internalID: -1847317640553318008
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_5
+      name: tower_1_5
       rect:
         serializedVersion: 2
-        x: 160
+        x: 105
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45929b16702802e70800000000000000
-      internalID: 9088407016249567572
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_6
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 795bcbf34ef88dbb0800000000000000
-      internalID: -4911017183162878569
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7370d91995381acf0800000000000000
-      internalID: -242768484182980809
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_8
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 00b7f605572536c50800000000000000
-      internalID: 6657255337997859584
+      spriteID: 742ce1d4fd2f9c650800000000000000
+      internalID: 6253796598466134599
       vertices: []
       indices: 
       edges: []

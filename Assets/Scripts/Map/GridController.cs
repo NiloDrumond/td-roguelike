@@ -44,8 +44,6 @@ public class GridController : MonoBehaviour
 		if (Input.GetMouseButtonUp(0) && !GameState.Instance.IsEditing)
 		{
 			var top = GetTopTile(mousePos);
-			Debug.Log(mousePos);
-			Debug.Log(top.First);
 			Vector3Int pos = top.First;
 			pos.z += 1;
 			var tile = towersMap.GetTile(pos);

@@ -1,34 +1,22 @@
 fileFormatVersion: 2
-guid: 43cda42b8e2431645b0ec45cbdbc24bc
+guid: f88fa0da5b9eae2469ab0c219ed98b6a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4804446361586417100
-    second: map_0
+      213: -8953423133888802406
+    second: crab_back_0
   - first:
-      213: -7688356529983298438
-    second: map_1
+      213: 6654624294925496812
+    second: crab_back_1
   - first:
-      213: -6113606119065762621
-    second: map_2
+      213: 2134168836190206711
+    second: crab_back_2
   - first:
-      213: -1849047750971238059
-    second: map_3
+      213: -8559649743826995170
+    second: crab_back_3
   - first:
-      213: -3632615384808042850
-    second: map_4
-  - first:
-      213: 9088407016249567572
-    second: map_5
-  - first:
-      213: -4911017183162878569
-    second: map_6
-  - first:
-      213: -242768484182980809
-    second: map_7
-  - first:
-      213: 6657255337997859584
-    second: map_8
+      213: 8088770017569329510
+    second: crab_back_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -130,190 +118,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: map_0
+      name: crab_back_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccdb6c4c282dca240800000000000000
-      internalID: 4804446361586417100
+      spriteID: a911bc4d81d0fb380800000000000000
+      internalID: -8953423133888802406
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_1
+      name: crab_back_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 25
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a746acb78787d4590800000000000000
-      internalID: -7688356529983298438
+      spriteID: ce1f7bcd989f95c50800000000000000
+      internalID: 6654624294925496812
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_2
+      name: crab_back_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 50
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c44e6040ab182ba0800000000000000
-      internalID: -6113606119065762621
+      spriteID: 7fa73dbcf371e9d10800000000000000
+      internalID: 2134168836190206711
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_3
+      name: crab_back_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 75
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 559df9efddcd656e0800000000000000
-      internalID: -1849047750971238059
+      spriteID: e18bd61b8e3063980800000000000000
+      internalID: -8559649743826995170
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_4
+      name: crab_back_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 100
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9ec5eecd8b569dc0800000000000000
-      internalID: -3632615384808042850
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 45929b16702802e70800000000000000
-      internalID: 9088407016249567572
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_6
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 795bcbf34ef88dbb0800000000000000
-      internalID: -4911017183162878569
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7370d91995381acf0800000000000000
-      internalID: -242768484182980809
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_8
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 00b7f605572536c50800000000000000
-      internalID: 6657255337997859584
+      spriteID: 661dc0f8975114070800000000000000
+      internalID: 8088770017569329510
       vertices: []
       indices: 
       edges: []

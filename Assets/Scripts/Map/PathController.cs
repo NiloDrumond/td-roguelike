@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using UnityEngine;
+using UnityEditor;
 
 public class PathController : MonoBehaviour
 {
@@ -18,14 +19,15 @@ public class PathController : MonoBehaviour
 
 	public void AddWaypoint(Vector3Int cell)
     {
+        EditorUtility.SetDirty(Path);
         Path.waypoints.Add(cell);
     }
 
 
     public void RemoveWaypoint(Vector3Int cell)
     {
+        EditorUtility.SetDirty(Path);
         Path.waypoints.Remove(cell);
-
     }
 
     private Vector3 GetCellCenter(Vector3Int cell)

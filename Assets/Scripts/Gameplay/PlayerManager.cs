@@ -29,8 +29,12 @@ public class PlayerManager : MonoBehaviour
 			mineralsCount = GameObject.Find("UI Canvas/Supplies/Minerals Value").GetComponent<TMP_Text>();
 			isInitialized = true;
 
-			Supplies = new Supplies();
-			Supplies.Add(Supply.Mineral, 0);
+            Supplies = new Supplies
+            {
+                { Supply.Mineral, 50 }
+            };
+			UpdateSupplies();
+
 		}
 		else
 		{
