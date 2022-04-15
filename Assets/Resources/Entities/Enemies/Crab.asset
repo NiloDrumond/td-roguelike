@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edecb9b117873444b98a5f86f4fc69b, type: 3}
   m_Name: Crab
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 3363784872669794816, guid: 0b7d29506fb302f42b0281bc39fdf709, type: 3}
+  EnemyPrefab: {fileID: 4581617740272578109, guid: 3c3d3825360ad7747863943dcb1d2cd5, type: 3}
   EnemyID: 0

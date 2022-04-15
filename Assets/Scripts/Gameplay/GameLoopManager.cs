@@ -31,7 +31,7 @@ public class GameLoopManager : MonoBehaviour
 
         if (GameState.Instance.IsEditing) return;
         StartCoroutine(GameLoop());
-        InvokeRepeating("SummonTest", 0f, 1f);
+        InvokeRepeating("SummonTest", 0f, 1.5f);
     }
     
     private static int pathIndex = 0;
