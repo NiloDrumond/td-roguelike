@@ -38,5 +38,4 @@ public class TowerBehaviour: MonoBehaviour
             damageMethod.DamageTick(Target);
 		}
 	}
-
 }
