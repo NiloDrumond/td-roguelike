@@ -56,7 +56,7 @@ public class GameLoopManager : MonoBehaviour
         if(IsRunning)
         {
             TimePassed += Time.deltaTime;
-            if(!GameState.Instance.AllRegionsUnlocked && TimePassed/60 > GameState.Instance.UnlockedRegions)
+            if(!GameState.Instance.AllRegionsUnlocked && TimePassed/10 > GameState.Instance.UnlockedRegions)
             {
                 GameState.Instance.IsUnlockingRegion = true;
                 StopLoop();

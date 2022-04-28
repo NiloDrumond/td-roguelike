@@ -23,4 +23,14 @@ public class MathUtils : MonoBehaviour
         return new Vector3(x, y, z);
 
     }
+
+    public static float GetScaledDelay(float initial, float timePassed)
+    {
+        return initial / Mathf.Pow(timePassed, timePassed * GlobalConstants.DELAY_SCALING);
+    }
+
+    public static int GetScaledSpawn(int initial, float timePassed)
+    {
+        return Mathf.FloorToInt(initial * Mathf.Pow(timePassed, timePassed * GlobalConstants.SPAWN_SCALING));
+    }
 }

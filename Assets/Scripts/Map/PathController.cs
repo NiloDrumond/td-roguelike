@@ -30,7 +30,6 @@ public class PathController : MonoBehaviour
         lineRenderer.positionCount = 0;
         lineRenderer.enabled = false;
         DrawPath();
-
     }
 
 
@@ -44,13 +43,13 @@ public class PathController : MonoBehaviour
                 spawnDelays[i] -= Time.deltaTime;
                 continue;
             }
-
-            for (int j = 0; j < Path.enemyCount[i]; j++)
+            int enemyCount = MathUtils.GetScaledSpawn(Path.enemyCount[i], GameLoopManager.Instance.TimePassed); ;
+            for (int j = 0; j < enemyCount; j++)
             {
                 GameLoopManager.Instance.EnqueueEnemyToSummon(new EnemyCreateData() { EnemyId = i, PathIndex = index });
             }
 
-            spawnDelays[i] = Path.enemyDelay[i];
+            spawnDelays[i] = MathUtils.GetScaledDelay(Path.enemyDelay[i], GameLoopManager.Instance.TimePassed);
         }
     }
 
@@ -118,7 +117,7 @@ public class PathController : MonoBehaviour
             {
                 lineRenderer.positionCount++;
                 Vector3 position = GetCellCenter(Path.waypoints[i]);
-                position.z = 2;
+                position.z = 200;
                 lineRenderer.SetPosition(i, position);
             }
         }
