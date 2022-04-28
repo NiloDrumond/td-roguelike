@@ -8,11 +8,51 @@ public class PathController : MonoBehaviour
 {
     [SerializeField] private Grid grid;
     [SerializeField] public Path Path;
+    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private float lineWidth = 0.04f;
+
+    private Dictionary<int, float> spawnDelays;
+    public bool Activated;
 
 	private void Awake()
 	{
         grid = GameObject.Find("Grid").GetComponent<Grid>();
-	}
+        spawnDelays = new Dictionary<int, float>();
+        for (int i = 0; i < 3; i++)
+        {
+            spawnDelays.Add(i, Path.enemyDelay[i]);
+        }
+
+        lineRenderer.startColor = Color.red;
+        lineRenderer.endColor = Color.red;
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
+        lineRenderer.positionCount = 0;
+        lineRenderer.enabled = false;
+        DrawPath();
+
+    }
+
+
+    public void Tick(int index)
+    {
+        if (!Activated) return;
+        for (int i = 0; i < 3; i++)
+        {
+            if(spawnDelays[i] > 0f)
+            {
+                spawnDelays[i] -= Time.deltaTime;
+                continue;
+            }
+
+            for (int j = 0; j < Path.enemyCount[i]; j++)
+            {
+                GameLoopManager.Instance.EnqueueEnemyToSummon(new EnemyCreateData() { EnemyId = i, PathIndex = index });
+            }
+
+            spawnDelays[i] = Path.enemyDelay[i];
+        }
+    }
 
 	// For editing
 	public bool IsSelected = false;
@@ -68,6 +108,25 @@ public class PathController : MonoBehaviour
                 Gizmos.DrawWireSphere(GetCellCenter(Path.waypoints[i]), 0.05f);
 			}
         }
+    }
+
+    public void DrawPath()
+    {
+        if(Path != null && lineRenderer != null)
+        {
+            for (int i = 0; i < Path.waypoints.Count; i++)
+            {
+                lineRenderer.positionCount++;
+                Vector3 position = GetCellCenter(Path.waypoints[i]);
+                position.z = 2;
+                lineRenderer.SetPosition(i, position);
+            }
+        }
+    }
+
+    public void ToggleHighlight(bool on)
+    {
+        lineRenderer.enabled = on;
     }
 
     private void OnDrawGizmosSelected()

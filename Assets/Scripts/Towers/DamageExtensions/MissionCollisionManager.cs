@@ -31,7 +31,7 @@ public class MissionCollisionManager : MonoBehaviour
 			{
 				Enemy enemyToDamage = EntityManager.EnemyTransformMap[enemiesInRadius[i].transform];
 				EnemyDamageData damageToApply = new EnemyDamageData(enemyToDamage, damage.Damage, enemyToDamage.DamageResistance);
-				GameLoopManager.EnqueueDamageData(damageToApply);
+				GameLoopManager.Instance.EnqueueDamageData(damageToApply);
 			}
 
 		}

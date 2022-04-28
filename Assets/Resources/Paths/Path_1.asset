@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints:
   - {x: 5, y: 2, z: 0}
-  - {x: 5, y: 2, z: 0}
-  - {x: 5, y: 2, z: 0}
   - {x: 2, y: 2, z: 0}
   - {x: 2, y: -1, z: 0}
   - {x: -5, y: -1, z: 0}
   - {x: -5, y: -4, z: 0}
   - {x: -8, y: -4, z: 0}
+  enemyDelay:
+  - 4
+  - 5
+  - 5
+  enemyCount: 010000000000000000000000

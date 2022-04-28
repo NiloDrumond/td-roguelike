@@ -34,12 +34,30 @@ public class PathsManager : MonoBehaviour
 		LoadPaths();
 		CalculateWaypoints();
 
-		if(GameState.Instance.IsEditing)
+		if (GameState.Instance.IsEditing)
 		{
 			selector = GameObject.Find("UI Canvas/PathEditor/PathSelector").GetComponent<PathSelector>();
 			InitializeSelector();
 		}
 	}
+
+	public static void ActivatedPath(int index)
+    {
+		pathControllers[index].Activated = true;
+    }
+
+	public static void HightlightPath(int index)
+    {
+		pathControllers[index].ToggleHighlight(true);
+    }
+
+	public static void DisableHighlight()
+    {
+        for (int i = 0; i < pathControllers.Count; i++)
+        {
+			pathControllers[i].ToggleHighlight(false);
+        }
+    }
 
 	private static void CalculateWaypoints()
 	{
@@ -61,7 +79,7 @@ public class PathsManager : MonoBehaviour
 			}
 			for (int j = 0; j < WaypointPositions[i].Length - 1; j++)
 			{
-				WaypointDistances[i][j] = Vector3.Distance(WaypointPositions[i][j], WaypointPositions[i][j + 1]);				
+				WaypointDistances[i][j] = Vector3.Distance(WaypointPositions[i][j], WaypointPositions[i][j + 1]);
 			}
 			WaypointDistancesToEnd[i] = new float[WaypointPositions[i].Length];
 			for (int j = 0; j < WaypointDistances[i].Length; j++)
@@ -73,6 +91,14 @@ public class PathsManager : MonoBehaviour
 				}
 				WaypointDistancesToEnd[i][j] = distance;
 			}
+		}
+	}
+
+	public static void TickPaths() 
+	{
+        for (int i = 0; i < PathsCount; i++)
+        {
+			pathControllers[i].Tick(i);
 		}
 	}
 

@@ -11,7 +11,7 @@ public class EntityManager : MonoBehaviour
     public static Dictionary<int, Queue<Enemy>> EnemyObjectPools;
 	
 	private static GameObject enemiesParent;
-	private static bool isInitialized;
+	private static bool isInitialized = false;
 
 	public static void Init()
 	{
@@ -30,6 +30,7 @@ public class EntityManager : MonoBehaviour
 				EnemyPrefabs.Add(enemy.EnemyID, enemy.EnemyPrefab);
 				EnemyObjectPools.Add(enemy.EnemyID, new Queue<Enemy>());
 			}
+			isInitialized = true;
 		}
 		else
 		{

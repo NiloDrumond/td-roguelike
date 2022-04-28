@@ -8,12 +8,29 @@ using UnityEngine.UI;
 
 public class GameLoopManager : MonoBehaviour
 {
-    private static Queue<EnemyDamageData> damageData;
+    public static GameLoopManager Instance { get; private set; }
+    private void Awake()
+    {
+        // If there is an instance, and it's not me, delete myself.
 
-    private static Queue<Enemy> enemiesToRemove;
-    private static Queue<EnemyCreateData> enemiesToSummon;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
-    public static bool LoopShouldEnd;
+
+    private Queue<EnemyDamageData> damageData;
+
+    private Queue<Enemy> enemiesToRemove;
+    private Queue<EnemyCreateData> enemiesToSummon;
+
+    public bool IsRunning;
+    public float TimePassed;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +39,7 @@ public class GameLoopManager : MonoBehaviour
         enemiesToSummon = new Queue<EnemyCreateData>();
         enemiesToRemove = new Queue<Enemy>();
 
+        RegionsManager.Init();
         PathsManager.Init();
         PlayerManager.Init();
         EntityManager.Init();
@@ -30,34 +48,43 @@ public class GameLoopManager : MonoBehaviour
         InputManager.Init();
 
         if (GameState.Instance.IsEditing) return;
-        StartCoroutine(GameLoop());
-        InvokeRepeating("SummonTest", 0f, 1.5f);
-    }
-    
-    private static int pathIndex = 0;
-    private static int enemyIndex = 0;
-
-    void SummonTest()
-	{
-        EnqueueEnemyToSummon(new EnemyCreateData(enemyIndex, pathIndex));
-        pathIndex++;
-        enemyIndex++;
-        if (pathIndex == PathsManager.PathsCount)
-		{
-            pathIndex = 0;
-		}
-        if (enemyIndex == EntityManager.EnemyPrefabs.Count)
+        TimePassed = 0;
+        StartLoop();
+    }   
+    private void Update()
+    {
+        if(IsRunning)
         {
-            enemyIndex = 0;
+            TimePassed += Time.deltaTime;
+            if(!GameState.Instance.AllRegionsUnlocked && TimePassed/60 > GameState.Instance.UnlockedRegions)
+            {
+                GameState.Instance.IsUnlockingRegion = true;
+                StopLoop();
+            }
         }
     }
 
 
+    public void StartLoop()
+    {
+        IsRunning = true;
+        StartCoroutine(GameLoop());
+    }
+
+    public void StopLoop()
+    {
+        IsRunning = false;
+    }
+
+
     // Update is called once per frame
-   IEnumerator GameLoop()
+    IEnumerator GameLoop()
 	{
-        while(LoopShouldEnd == false)
+        while(IsRunning)
 		{
+            // Tick Paths to spawn Enemies
+
+            PathsManager.TickPaths();
 
             // Spawn Enemies
             
@@ -184,19 +211,19 @@ public class GameLoopManager : MonoBehaviour
 
             yield return null;
 		}
-	}
+    }
 
-    public static void EnqueueDamageData(EnemyDamageData data)
+    public void EnqueueDamageData(EnemyDamageData data)
 	{
         damageData.Enqueue(data);
 	}
 
-    public static void EnqueueEnemyToSummon(EnemyCreateData data)
+    public void EnqueueEnemyToSummon(EnemyCreateData data)
 	{
         enemiesToSummon.Enqueue(data);
 	}
 
-    public static void EnqueueEnemyToRemove(Enemy enemy)
+    public void EnqueueEnemyToRemove(Enemy enemy)
 	{
         enemiesToRemove.Enqueue(enemy);
     }

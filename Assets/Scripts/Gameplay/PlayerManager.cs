@@ -73,7 +73,7 @@ public class PlayerManager : MonoBehaviour
 		UpdateHealthBar();
 		if (Health <= 0)
 		{
-			GameLoopManager.LoopShouldEnd = true;
+			GameLoopManager.Instance.IsRunning = false;
 		}
 	}
 }

@@ -25,7 +25,7 @@ public class StandardDamage : MonoBehaviour, IDamageMethod
 			return;
 		}
 
-		GameLoopManager.EnqueueDamageData(new EnemyDamageData(target, damage, target.DamageResistance));
+		GameLoopManager.Instance.EnqueueDamageData(new EnemyDamageData(target, damage, target.DamageResistance));
 
 		delay = 1 / firerate;
 	}

@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d839bf8a1725f31478df0e49e56c92e4, type: 3}
   m_Name: Path_2
   m_EditorClassIdentifier: 
-  waypoints: []
+  waypoints:
+  - {x: -3, y: 3, z: 0}
+  - {x: -3, y: -1, z: 0}
+  - {x: -6, y: -2, z: 0}
+  - {x: -6, y: -4, z: 0}
+  - {x: -9, y: -4, z: 0}
+  enemyDelay:
+  - 5
+  - 5
+  - 5
+  enemyCount: 000000000100000000000000

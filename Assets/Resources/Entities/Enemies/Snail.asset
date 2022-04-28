@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Snail
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 3363784872669794816, guid: 0b7d29506fb302f42b0281bc39fdf709, type: 3}
-  EnemyID: 2
+  EnemyID: 1
