@@ -15,7 +15,6 @@ public class StandardDamage : MonoBehaviour, IDamageMethod
 	private float damage;
 	private float firerate;
 	private float delay;
-	public float level = 1;
 
 	public void DamageTick(Enemy target)
 	{
@@ -40,7 +39,6 @@ public class StandardDamage : MonoBehaviour, IDamageMethod
 	}
 	public void upgrade(float damage, float firerate)
 	{
-		this.level = this.level + 1;
-		this.damage = damage * 2;
+		this.damage = damage * 3;
 	}
 }

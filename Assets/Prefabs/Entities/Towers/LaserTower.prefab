@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343159166363305429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.124, y: -0.022, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4526530528917938439}
@@ -175,6 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9fa43777c80d84696be434d6409b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tSpriteRenderer: {fileID: 7361249060374743182}
+  Llevel1: {fileID: 1734505344336248340, guid: 16ee67950ef7c9e43933b28331e5d285, type: 3}
+  Llevel2: {fileID: -2629330151561519671, guid: c028c93b05581ad4685099ff73e18acf, type: 3}
+  Llevel3: {fileID: 6345449528291814160, guid: b4015de0976b1754c87e78a33d16dff7, type: 3}
   EnemiesLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -196,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaserPivot: {fileID: 4526530528917938439}
   LaserRenderer: {fileID: 5461787599722268131}
+  level: 1
 --- !u!1 &3808469336881348990
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3808469336881348990}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0.049, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3400504186490985677}
@@ -267,7 +272,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7653555557609357695, guid: 5310955b29f3b6c42911eb7bb4901a4f, type: 3}
+  m_Sprite: {fileID: 1734505344336248340, guid: 16ee67950ef7c9e43933b28331e5d285, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
