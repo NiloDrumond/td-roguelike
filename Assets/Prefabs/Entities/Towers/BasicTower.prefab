@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9fa43777c80d84696be434d6409b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderer: {fileID: 138890179924069388}
   EnemiesLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -146,3 +147,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2910a4e61e63e499128a75dfea6346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
