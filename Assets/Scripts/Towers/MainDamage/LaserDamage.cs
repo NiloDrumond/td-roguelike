@@ -10,6 +10,7 @@ public class LaserDamage : MonoBehaviour, IDamageMethod
 	private float damage;
 	private float firerate;
 	private float delay;
+	public float level = 1;
 
 	public void DamageTick(Enemy target)
 	{
@@ -30,7 +31,7 @@ public class LaserDamage : MonoBehaviour, IDamageMethod
 			delay = 1 / firerate;
 		} else
 		{
-			LaserRenderer.enabled = false;
+			LaserRenderer.enabled = false;	
 		}
 		
 	}
@@ -42,4 +43,9 @@ public class LaserDamage : MonoBehaviour, IDamageMethod
 		this.delay = 1 / firerate;
 		LaserRenderer.useWorldSpace = true;
 	}
+		public void upgrade(float damage, float firerate)
+		{
+			this.level = this.level + 1;
+			this.firerate = firerate*2;
+		}
 }

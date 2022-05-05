@@ -15,6 +15,7 @@ public class TowerManager : MonoBehaviour
 	private static GameObject towersParent;
 
 
+
 	public static void Init()
 	{
 		if (!isInitialized)
@@ -22,6 +23,7 @@ public class TowerManager : MonoBehaviour
 			TowersInGame = new List<TowerBehaviour>();
 			towerResources = Resources.LoadAll<TowerData>("Entities/Towers");
 			TowerPrefabs = new Dictionary<int, GameObject>();
+			GameState.Instance.IsUpgrading = false;
 
 			for (int i = 0; i < towerResources.Length; i++)
 			{
@@ -73,6 +75,25 @@ public class TowerManager : MonoBehaviour
 			TowerBehaviour towerBehaviour = tower.GetComponent<TowerBehaviour>();
 			TowersInGame.Add(towerBehaviour);
 		}
+	}
+	public static void UpgradeTime()
+    {
+		GameState.Instance.IsUpgrading = true;
+	}
+	public static bool UpgradeTower(Vector3 position)
+	{
+		int index = TowersInGame.FindIndex(t => {
+			return t.transform.position.x == position.x && t.transform.position.y == position.y;
+		});
+		GameObject obj = TowersInGame[index].gameObject;
+		TowerData data = towerResources[index];
+		Supplies cost = new Supplies(data.UpgradeCost);
+		bool enoughSupplies = PlayerManager.SpendSupplies(cost);
+		if (!enoughSupplies) return false;
+		TowersInGame[index].Upgrade();
+		GameState.Instance.IsUpgrading = false;
+		return true;
+
 	}
 
 	public static void RemoveTower(Vector3 position)

@@ -10,4 +10,5 @@ public class TowerData : ScriptableObject
     public GameObject TowerPrefab;
     public int TowerID;
     public int MineralsCost;
+    public int UpgradeCost;
 }

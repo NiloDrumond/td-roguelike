@@ -311,7 +311,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -160, y: -481}
+  m_AnchoredPosition: {x: -820, y: -415}
   m_SizeDelta: {x: 200, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &42017983
@@ -450,8 +450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd611441fc6f1f4c9f714fcd4dcbeb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIcon: {fileID: 21300000, guid: bd190f341a63ae7449752d80a3a8ef73, type: 3}
-  buttonText: Flame
+  buttonIcon: {fileID: 21300000, guid: a40e131b61d22ba42b2955962e636ca4, type: 3}
+  buttonText: Upgrade Basic
   clickEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5952,7 +5952,7 @@ GameObject:
   m_Icon: {fileID: 2800000, guid: 98d001ce6b3b53242911dcc3d1415f59, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &917248246
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6111,15 +6111,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd611441fc6f1f4c9f714fcd4dcbeb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIcon: {fileID: 21300000, guid: bd190f341a63ae7449752d80a3a8ef73, type: 3}
-  buttonText: Missile
+  buttonIcon: {fileID: 21300000, guid: c07549e02a2d55049906af989d15fe22, type: 3}
+  buttonText: 'Upgrade '
   clickEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1909802251}
         m_TargetAssemblyTypeName: TowerManager, Assembly-CSharp
-        m_MethodName: SelectTowerToBuild
-        m_Mode: 3
+        m_MethodName: UpgradeTime
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6484,7 +6484,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Missile
+  m_text: 'Upgrade '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
   m_sharedMaterial: {fileID: 21261991626553910, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
@@ -7048,7 +7048,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bd190f341a63ae7449752d80a3a8ef73, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c07549e02a2d55049906af989d15fe22, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -8461,7 +8461,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bd190f341a63ae7449752d80a3a8ef73, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a40e131b61d22ba42b2955962e636ca4, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -8911,7 +8911,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Flame
+  m_text: Upgrade Basic
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
   m_sharedMaterial: {fileID: 21261991626553910, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
@@ -9959,6 +9959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlockRegionText: {fileID: 183909545}
   IsEditing: 0
+  IsUnlockingRegion: 0
   UnlockedRegions: 0
   AllRegionsUnlocked: 0
 --- !u!114 &1909802254

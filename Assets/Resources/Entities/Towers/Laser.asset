@@ -15,3 +15,4 @@ MonoBehaviour:
   TowerPrefab: {fileID: 3400504186490985679, guid: 4eaa8832c04cdd44098fd13410a60609, type: 3}
   TowerID: 1
   MineralsCost: 10
+  UpgradeCost: 20

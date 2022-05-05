@@ -30,8 +30,21 @@ public class TowerBehaviour: MonoBehaviour
         delay = 1 / Firerate;
 	}
 
+    public void Upgrade()
+    {
+        IDamageMethod method = GetComponent<IDamageMethod>();
 
-	public void Tick()
+        if (method == null)
+        {
+            Debug.LogError("TOWER_BEHAVIOUR: Damage method not found");
+        }
+
+        damageMethod = method;
+
+        damageMethod.upgrade(Damage, Firerate);
+    }
+
+    public void Tick()
 	{
         if(damageMethod != null)
 		{

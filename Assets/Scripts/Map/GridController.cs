@@ -56,6 +56,30 @@ public class GridController : MonoBehaviour
             
         }
 
+        // Left-click -> upgrade tower
+        if (Input.GetMouseButtonUp(0) && !GameState.Instance.IsEditing && GameState.Instance.IsUpgrading)
+        {
+            var top = GetTopTile(mousePos);
+            Vector3Int pos = top.First;
+            pos.z += 1;
+            var tile = towersMap.GetTile(pos);
+
+            if (tile != null)
+            {
+                Vector3 worldPosition = towersMap.CellToWorld(pos);
+                bool activatedRegion = RegionsManager.CheckForPlacement(mousePos);
+                if (activatedRegion)
+                {
+                    bool enoughResources = TowerManager.UpgradeTower(new Vector3(worldPosition.x, worldPosition.y, pos.z));
+                    if (enoughResources)
+                    {
+                        //usar isso pra mudar o tile?
+                        towersMap.SetTile(pos, EmptyTile);
+                    }
+                }
+
+            }
+        }
         // Left-click -> place tower
         if (Input.GetMouseButtonUp(0) && !GameState.Instance.IsEditing)
         {

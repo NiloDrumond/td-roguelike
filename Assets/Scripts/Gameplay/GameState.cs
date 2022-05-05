@@ -10,7 +10,8 @@ public class GameState : MonoBehaviour
     [SerializeField] private TMP_Text unlockRegionText;
     public bool IsEditing;
     private bool isUnlockingRegion;
-    public bool IsUnlockingRegion
+    public bool IsUnlockingRegion;
+    public bool IsUpgrading
     {
         get { return isUnlockingRegion; }
         set
