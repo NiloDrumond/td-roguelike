@@ -9,7 +9,7 @@ public class PathController : MonoBehaviour
     [SerializeField] private Grid grid;
     [SerializeField] public Path Path;
     [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private float lineWidth = 0.04f;
+    [SerializeField] private float lineWidth = 0.01f;
 
     private Dictionary<int, float> spawnDelays;
     public bool Activated;

@@ -8,12 +8,13 @@ using UnityEngine.Tilemaps;
 public class GridController : MonoBehaviour
 {
     [SerializeField] private Grid grid = null;
-    [SerializeField] private Tilemap baseMap = null;
+    [SerializeField] private Tilemap layer1 = null;
+    [SerializeField] private Tilemap layer2 = null;
+    [SerializeField] private Tilemap layer3 = null;
     [SerializeField] private Tilemap interactiveMap = null;
     [SerializeField] private Tilemap towersMap = null;
     [SerializeField] private Tilemap suppliesMap = null;
     [SerializeField] private IsometricRuleTile hoverTile = null;
-    [SerializeField] private IsometricRuleTile highHoverTile = null;
     [SerializeField] private Tile EmptyTile = null;
 
     private Vector3Int previousCursorPosition = new Vector3Int();
@@ -27,7 +28,7 @@ public class GridController : MonoBehaviour
         }
         RegionsManager.DisableHighlight();
         // Mouse over -> highlight tile
-        Vector3Int mousePos = GetMousePosition(grid, baseMap);
+        Vector3Int mousePos = GetCellAtMouse();
 
         if (GameState.Instance.IsUnlockingRegion)
         {
@@ -47,11 +48,9 @@ public class GridController : MonoBehaviour
         if (!mousePos.Equals(previousCursorPosition))
         {           
             var top = GetTopTile(mousePos);
-            Vector3Int pos = top.First;
-            bool isHigh = top.Second;
-            Vector3Int high = new Vector3Int(pos.x - 100, pos.y - 100, pos.z + 100);
+            Vector3Int high = new Vector3Int(top.x - 100, top.y - 100, top.z + 100);
             interactiveMap.SetTile(previousCursorPosition, null); // Remove old hoverTile
-            interactiveMap.SetTile(high, isHigh ? highHoverTile : hoverTile);
+            interactiveMap.SetTile(top, hoverTile);
             previousCursorPosition = high;
             
         }
@@ -60,21 +59,20 @@ public class GridController : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && !GameState.Instance.IsEditing && GameState.Instance.IsUpgrading)
         {
             var top = GetTopTile(mousePos);
-            Vector3Int pos = top.First;
-            pos.z += 1;
-            var tile = towersMap.GetTile(pos);
+            top.z += 1;
+            var tile = towersMap.GetTile(top);
 
             if (tile != null)
             {
-                Vector3 worldPosition = towersMap.CellToWorld(pos);
+                Vector3 worldPosition = towersMap.CellToWorld(top);
                 bool activatedRegion = RegionsManager.CheckForPlacement(mousePos);
                 if (activatedRegion)
                 {
-                    bool enoughResources = TowerManager.UpgradeTower(new Vector3(worldPosition.x, worldPosition.y, pos.z));
+                    bool enoughResources = TowerManager.UpgradeTower(new Vector3(worldPosition.x, worldPosition.y, top.z));
                     if (enoughResources)
                     {
                         //usar isso pra mudar o tile?
-                        towersMap.SetTile(pos, EmptyTile);
+                        towersMap.SetTile(top, EmptyTile);
                     }
                 }
 
@@ -84,20 +82,19 @@ public class GridController : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && !GameState.Instance.IsEditing)
         {
             var top = GetTopTile(mousePos);
-            Vector3Int pos = top.First;
-            pos.z += 1;
-            var tile = towersMap.GetTile(pos);
+            top.z += 1;
+            var tile = towersMap.GetTile(top);
 
             if (tile == null)
             {
-                Vector3 worldPosition = towersMap.CellToWorld(pos);
+                Vector3 worldPosition = towersMap.CellToWorld(top);
                 bool activatedRegion = RegionsManager.CheckForPlacement(mousePos);
                 if (activatedRegion)
                 {
-                    bool enoughResources = TowerManager.PlaceTower(new Vector3(worldPosition.x, worldPosition.y, pos.z));
+                    bool enoughResources = TowerManager.PlaceTower(new Vector3(worldPosition.x, worldPosition.y, top.z));
                     if (enoughResources)
                     {
-                        towersMap.SetTile(pos, EmptyTile);
+                        towersMap.SetTile(top, EmptyTile);
                     }
                 }
 
@@ -108,16 +105,15 @@ public class GridController : MonoBehaviour
         if (Input.GetMouseButtonUp(2) && !GameState.Instance.IsEditing)
         {
             var top = GetTopTile(mousePos);
-            Vector3Int pos = top.First;
-            pos.z += 1;
-            var tile = suppliesMap.GetTile(pos);
+            top.z += 1;
+            var tile = suppliesMap.GetTile(top);
             if (tile == null)
             {
-                Vector3 worldPosition = suppliesMap.CellToWorld(pos);
-                bool success = GeneratorManager.PlaceSupply(new Vector3(worldPosition.x, worldPosition.y, pos.z));
+                Vector3 worldPosition = suppliesMap.CellToWorld(top);
+                bool success = GeneratorManager.PlaceSupply(new Vector3(worldPosition.x, worldPosition.y, top.z));
                 if (success)
                 {
-                    suppliesMap.SetTile(pos, EmptyTile);
+                    suppliesMap.SetTile(top, EmptyTile);
                 }
             }
         }
@@ -127,46 +123,84 @@ public class GridController : MonoBehaviour
         {
 
             var top = GetTopTile(mousePos);
-            Vector3Int pos = top.First;
-            pos.z += 1;
+            top.z += 1;
 
-            var tile = towersMap.GetTile(pos);
+            var tile = towersMap.GetTile(top);
             if (tile != null)
             {
-                Vector3 worldPosition = towersMap.CellToWorld(pos);
-                TowerManager.RemoveTower(new Vector3(worldPosition.x, worldPosition.y, pos.z));
-                towersMap.SetTile(pos, null);
+                Vector3 worldPosition = towersMap.CellToWorld(top);
+                TowerManager.RemoveTower(new Vector3(worldPosition.x, worldPosition.y, top.z));
+                towersMap.SetTile(top, null);
             }
 
         }
     }
 
-    Pair<Vector3Int, bool> GetTopTile(Vector3Int gridCell)
+    Vector3Int GetTopTile(Vector3Int gridCell)
     {
-        bool isHighTile = false;
-        for (int z = 100; z >= 0; z--)
+        Vector3Int cell;
+        TileBase tile;
+        if (gridCell.z == 2) return gridCell;
+        if (gridCell.z == 1)
         {
-            gridCell.z = z;
-            var tile = baseMap.GetTile(new Vector3Int(gridCell.x, gridCell.y, z));
-            if (tile == null || tile.name == null)
+            cell = new Vector3Int(gridCell.x - 1, gridCell.y - 1, gridCell.z);
+            tile = layer3.GetTile(cell);
+            if(tile != null)
             {
+                return cell;
             }
-            else
-            {
-                isHighTile = tile.name == "tiles_19";
-                return new Pair<Vector3Int, bool>(gridCell, isHighTile);
-            }
-
         }
-        return new Pair<Vector3Int, bool>(gridCell, isHighTile);
+        cell = new Vector3Int(gridCell.x - 2, gridCell.y - 2, gridCell.z);
+        tile = layer3.GetTile(cell);
+        if (tile != null)
+        {
+            return cell;
+        }
+        cell = new Vector3Int(gridCell.x - 1, gridCell.y - 1, gridCell.z);
+        tile = layer2.GetTile(cell);
+        if (tile != null)
+        {
+            return cell;
+        }
+        return gridCell;
     }
 
 
-    public static Vector3Int GetMousePosition(Grid grid, Tilemap tilemap)
+    public Vector3Int GetCellAtMouse()
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector3Int gridCell = tilemap.WorldToCell(mouseWorldPos);
+        Vector3Int gridCell = grid.WorldToCell(mouseWorldPos);
+
+        gridCell.x += gridCell.z;
+        gridCell.y += gridCell.z;
+        gridCell.z = 0;
+
+        var tile = layer3.GetTile(gridCell);
+        if(tile != null)
+        {
+            gridCell.x -= 2;
+            gridCell.y -= 2;
+            gridCell.z = 2;
+            return gridCell;
+        }
+        tile = layer2.GetTile(gridCell);
+        if (tile != null)
+        {
+            gridCell.x -= 1;
+            gridCell.y -= 1;
+            gridCell.z = 1;
+            return gridCell;
+        }
+        return gridCell;
+    }
+
+    public static Vector3Int GetMousePosition(Grid grid)
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        var gridCell = grid.WorldToCell(mouseWorldPos);
+
         //gridCell.x += gridCell.z;
         //gridCell.y += gridCell.z;
         //gridCell.z = 0;

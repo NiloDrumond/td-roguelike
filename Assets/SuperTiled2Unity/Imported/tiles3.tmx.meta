@@ -19,7 +19,7 @@ ScriptedImporter:
   edgesPerEllipse: 32
   numberOfObjectsImported: 2
   tilesAsObjects: 0
-  sortingMode: 0
+  sortingMode: 1
   isIsometric: 1
   customImporterClassName: 
   internalTilesets: []

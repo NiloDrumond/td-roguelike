@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class PathsManager : MonoBehaviour
 {
-	[SerializeField] private Tilemap baseMap;
 	[SerializeField] private Grid grid;
 	private static List<Tilemap> tilemaps;
 	private static List<PathController> pathControllers;
@@ -122,7 +121,7 @@ public class PathsManager : MonoBehaviour
 			return;
 		}
 
-		Vector3Int mousePos = GridController.GetMousePosition(grid, baseMap);
+		Vector3Int mousePos = GridController.GetMousePosition(grid);
 		// Left-click -> place waypoint
 		if (Input.GetMouseButtonUp(0))
 		{
