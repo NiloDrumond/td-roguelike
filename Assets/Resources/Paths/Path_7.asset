@@ -29,5 +29,5 @@ MonoBehaviour:
   enemyDelay:
   - 5
   - 5
-  - 5
-  enemyCount: 000000000000000000000000
+  - 12
+  enemyCount: 010000000000000002000000

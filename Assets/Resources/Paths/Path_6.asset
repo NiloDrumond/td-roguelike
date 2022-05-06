@@ -24,7 +24,7 @@ MonoBehaviour:
   - {x: -23, y: -39, z: 0}
   - {x: -23, y: -24, z: 0}
   enemyDelay:
+  - 8
   - 5
   - 5
-  - 5
-  enemyCount: 000000000000000000000000
+  enemyCount: 030000000100000000000000
