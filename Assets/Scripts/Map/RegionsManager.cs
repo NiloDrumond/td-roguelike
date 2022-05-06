@@ -65,7 +65,8 @@ public class RegionsManager : MonoBehaviour
 			var tile = regionTilemaps[i].GetTile(position);
 			if(tile != null)
             {
-				return regionControllers[i].Activated;
+				var activated = regionControllers[i].Activated;
+				if (activated) return true;
             }
         }
 		return false;

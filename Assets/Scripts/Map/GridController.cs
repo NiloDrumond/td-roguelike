@@ -37,6 +37,7 @@ public class GridController : MonoBehaviour
                 }
             }
         }
+        Debug.Log(cell);
         Debug.Log(tile.name);
         return false;
     }
@@ -50,20 +51,20 @@ public class GridController : MonoBehaviour
         RegionsManager.DisableHighlight();
        
         Vector3Int mousePos = GetCellAtMouse();
-        //if (GameState.Instance.IsUnlockingRegion)
-        //{
-        //    interactiveMap.SetTile(previousCursorPosition, null);
-        //    int region = RegionsManager.GetUnlockableRegion(mousePos);
-        //    if (region >= 0)
-        //    {
-        //        if (Input.GetMouseButtonUp(0))
-        //        {
-        //            RegionsManager.ActivateRegion(region);
-        //        }
-        //        RegionsManager.HighlightRegion(region);
-        //    }
-        //    return;
-        //}
+        if (GameState.Instance.IsUnlockingRegion)
+        {
+            interactiveMap.SetTile(previousCursorPosition, null);
+            int region = RegionsManager.GetUnlockableRegion(mousePos);
+            if (region >= 0)
+            {
+                if (Input.GetMouseButtonUp(0))
+                {
+                    RegionsManager.ActivateRegion(region);
+                }
+                RegionsManager.HighlightRegion(region);
+            }
+            return;
+        }
 
         // Mouse over -> highlight tile
         if (!mousePos.Equals(previousCursorPosition))
@@ -123,23 +124,6 @@ public class GridController : MonoBehaviour
             }
         }
 
-        // Middle-click -> place supply
-        if (Input.GetMouseButtonUp(2) && !GameState.Instance.IsEditing)
-        {
-            var top = GetTopTile(mousePos);
-            top.z += 1;
-            var tile = suppliesMap.GetTile(top);
-            if (tile == null)
-            {
-                Vector3 worldPosition = suppliesMap.CellToWorld(top);
-                bool success = GeneratorManager.PlaceSupply(new Vector3(worldPosition.x, worldPosition.y, top.z));
-                if (success)
-                {
-                    suppliesMap.SetTile(top, EmptyTile);
-                }
-            }
-        }
-
         // Right-click -> delete tower
         if (Input.GetMouseButtonUp(1) && !GameState.Instance.IsEditing)
         {
@@ -181,7 +165,7 @@ public class GridController : MonoBehaviour
     public Vector3Int GetCellAtMouse()
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPos.y += 0.08f;
+        mouseWorldPos.y -= 0.08f;
         mouseWorldPos.z = 0;
         Vector3Int gridCell = layer1.WorldToCell(mouseWorldPos);
 
@@ -207,7 +191,6 @@ public class GridController : MonoBehaviour
     public static Vector3Int GetMousePosition(Grid grid)
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPos.y += 0.08f;
         var gridCell = grid.WorldToCell(mouseWorldPos);
 
         //gridCell.x += gridCell.z;
