@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Path_2
   m_EditorClassIdentifier: 
   waypoints:
-  - {x: -3, y: 3, z: 0}
-  - {x: -3, y: -1, z: 0}
-  - {x: -6, y: -2, z: 0}
-  - {x: -6, y: -4, z: 0}
-  - {x: -9, y: -4, z: 0}
+  - {x: -14, y: -39, z: 0}
+  - {x: -14, y: -42, z: 0}
+  - {x: -20, y: -42, z: 0}
+  - {x: -20, y: -41, z: 0}
+  - {x: -22, y: -41, z: 0}
+  - {x: -22, y: -39, z: 0}
+  - {x: -23, y: -39, z: 0}
+  - {x: -23, y: -23, z: 0}
   enemyDelay:
   - 5
   - 5
