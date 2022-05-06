@@ -31,7 +31,7 @@ public class PlayerManager : MonoBehaviour
 
             Supplies = new Supplies
             {
-                { Supply.Mineral, 50 }
+                { Supply.Mineral, 0}
             };
 			UpdateSupplies();
 
