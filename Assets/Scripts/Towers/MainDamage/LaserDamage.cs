@@ -10,7 +10,6 @@ public class LaserDamage : MonoBehaviour, IDamageMethod
 	private float damage;
 	private float firerate;
 	private float delay;
-	public float level = 1;
 
 	public void DamageTick(Enemy target)
 	{
@@ -45,7 +44,6 @@ public class LaserDamage : MonoBehaviour, IDamageMethod
 	}
 		public void upgrade(float damage, float firerate)
 		{
-			this.level = this.level + 1;
-			this.firerate = firerate*2;
+			this.firerate = firerate*3;
 		}
 }

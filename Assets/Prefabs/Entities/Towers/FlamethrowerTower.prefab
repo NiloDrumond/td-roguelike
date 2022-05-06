@@ -118,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaserPivot: {fileID: 0}
   LaserRenderer: {fileID: 0}
+  level: 1
 --- !u!1 &3535086533011350363
 GameObject:
   m_ObjectHideFlags: 0
