@@ -10,17 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d839bf8a1725f31478df0e49e56c92e4, type: 3}
-  m_Name: Path_1
+  m_Name: Path_4
   m_EditorClassIdentifier: 
   waypoints:
-  - {x: -2, y: -22, z: 0}
-  - {x: -6, y: -22, z: 0}
-  - {x: -6, y: -23, z: 0}
-  - {x: -8, y: -23, z: 0}
+  - {x: -11, y: -4, z: 0}
+  - {x: -11, y: -7, z: 0}
+  - {x: -10, y: -8, z: 0}
+  - {x: -10, y: -9, z: 0}
+  - {x: -7, y: -10, z: 0}
+  - {x: -6, y: -11, z: 0}
+  - {x: -6, y: -11, z: 0}
+  - {x: -6, y: -15, z: 0}
+  - {x: -5, y: -15, z: 0}
+  - {x: -5, y: -21, z: 0}
+  - {x: -5, y: -23, z: 0}
+  - {x: -7, y: -23, z: 0}
   - {x: -8, y: -24, z: 0}
   - {x: -23, y: -24, z: 0}
   enemyDelay:
-  - 4
   - 5
   - 5
-  enemyCount: 010000000000000000000000
+  - 5
+  enemyCount: 000000000000000000000000

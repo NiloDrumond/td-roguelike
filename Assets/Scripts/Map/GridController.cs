@@ -207,7 +207,6 @@ public class GridController : MonoBehaviour
     public static Vector3Int GetMousePosition(Grid grid)
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPos.y += 0.08f;
         var gridCell = grid.WorldToCell(mouseWorldPos);
 
         //gridCell.x += gridCell.z;
