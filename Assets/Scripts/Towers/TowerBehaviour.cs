@@ -13,7 +13,7 @@ public class TowerBehaviour: MonoBehaviour
     public float Damage;
     public float Firerate;
     public float Range;
-    private float delay;
+    public int CostToUpgrade;
     public float level;
 
     private IDamageMethod damageMethod;
@@ -31,13 +31,12 @@ public class TowerBehaviour: MonoBehaviour
         tSpriteRenderer.sprite = Llevel1;
         damageMethod.Init(Damage, Firerate);
         level = 1;
-        delay = 1 / Firerate;
 	}
 
     public void Upgrade()
     {
         IDamageMethod method = GetComponent<IDamageMethod>();
-
+        if (level == 3) return;
         if (method == null)
         {
             Debug.LogError("TOWER_BEHAVIOUR: Damage method not found");

@@ -137,7 +137,9 @@ MonoBehaviour:
   Target: {fileID: 0}
   Damage: 2
   Firerate: 1
-  Range: 10
+  Range: 1.5
+  CostToUpgrade: 10
+  level: 0
 --- !u!114 &-3727730240316292662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,4 +152,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2910a4e61e63e499128a75dfea6346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1

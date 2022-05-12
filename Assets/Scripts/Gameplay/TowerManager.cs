@@ -23,7 +23,7 @@ public class TowerManager : MonoBehaviour
 			TowersInGame = new List<TowerBehaviour>();
 			towerResources = Resources.LoadAll<TowerData>("Entities/Towers");
 			TowerPrefabs = new Dictionary<int, GameObject>();
-			GameState.Instance.IsUpgrading = false;
+			GameState.Instance.IsUnlockingRegion = false;
 
 			for (int i = 0; i < towerResources.Length; i++)
 			{
@@ -85,9 +85,9 @@ public class TowerManager : MonoBehaviour
 		int index = TowersInGame.FindIndex(t => {
 			return t.transform.position.x == position.x && t.transform.position.y == position.y;
 		});
+		if (index < 0) return false;
 		GameObject obj = TowersInGame[index].gameObject;
-		TowerData data = towerResources[index];
-		Supplies cost = new Supplies(data.UpgradeCost);
+		Supplies cost = new Supplies(TowersInGame[index].CostToUpgrade);
 		bool enoughSupplies = PlayerManager.SpendSupplies(cost);
 		if (!enoughSupplies) return false;
 		TowersInGame[index].Upgrade();

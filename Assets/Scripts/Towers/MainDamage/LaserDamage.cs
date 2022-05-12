@@ -44,6 +44,6 @@ public class LaserDamage : MonoBehaviour, IDamageMethod
 	}
 		public void upgrade(float damage, float firerate)
 		{
-			this.firerate = firerate*3;
+			this.firerate = firerate * 2;
 		}
 }

@@ -39,6 +39,6 @@ public class StandardDamage : MonoBehaviour, IDamageMethod
 	}
 	public void upgrade(float damage, float firerate)
 	{
-		this.damage = damage * 3;
+		this.damage = damage * 2;
 	}
 }
