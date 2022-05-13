@@ -37,8 +37,6 @@ public class GridController : MonoBehaviour
                 }
             }
         }
-        Debug.Log(cell);
-        Debug.Log(tile.name);
         return false;
     }
 
@@ -70,10 +68,15 @@ public class GridController : MonoBehaviour
         if (!mousePos.Equals(previousCursorPosition))
         {           
             var top = GetTopTile(mousePos);
-            // Debug.Log(top);
             Vector3Int high = new Vector3Int(mousePos.x - 100, mousePos.y - 100, mousePos.z + 100);
-            interactiveMap.SetTile(previousCursorPosition, null); // Remove old hoverTile
+            
+            interactiveMap.SetTile(previousCursorPosition, null); // Remove old hoverTile            
             interactiveMap.SetTile(high, hoverTile);
+            bool placeable = RegionsManager.CheckForPlacement(mousePos);
+            if (!placeable)
+            {
+                interactiveMap.SetColor(high, new Color(140, 0, 0));
+            }
             previousCursorPosition = high;
             
         }

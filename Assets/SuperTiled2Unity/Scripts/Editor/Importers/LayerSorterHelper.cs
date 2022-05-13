@@ -1,1 +1,0 @@
-﻿// [SuperTiled2Unity deprecated]
