@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d839bf8a1725f31478df0e49e56c92e4, type: 3}
+  m_Name: Path_9
+  m_EditorClassIdentifier: 
+  waypoints:
+  - {x: -30, y: -7, z: 0}
+  - {x: -31, y: -9, z: 0}
+  - {x: -35, y: -9, z: 0}
+  - {x: -36, y: -9, z: 0}
+  - {x: -36, y: -10, z: 0}
+  - {x: -38, y: -10, z: 0}
+  - {x: -38, y: -11, z: 0}
+  - {x: -41, y: -11, z: 0}
+  - {x: -41, y: -12, z: 0}
+  - {x: -42, y: -12, z: 0}
+  - {x: -42, y: -13, z: 0}
+  - {x: -43, y: -13, z: 0}
+  - {x: -43, y: -14, z: 0}
+  - {x: -44, y: -14, z: 0}
+  - {x: -44, y: -15, z: 0}
+  - {x: -46, y: -16, z: 0}
+  - {x: -46, y: -22, z: 0}
+  - {x: -44, y: -21, z: 0}
+  - {x: -45, y: -23, z: 0}
+  - {x: -43, y: -24, z: 0}
+  - {x: -43, y: -24, z: 0}
+  - {x: -23, y: -24, z: 0}
+  enemyDelay:
+  - 4
+  - 2
+  - 5
+  enemyCount: 010000000100000000000000

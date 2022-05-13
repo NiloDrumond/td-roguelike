@@ -33,10 +33,10 @@ public class RegionsManager : MonoBehaviour
 		PathsManager.ActivatedPath(index);
 		// Activate Generators
 
-
 		GameState.Instance.IsUnlockingRegion = false;
 		GameState.Instance.UnlockedRegions++;
-		if(GameState.Instance.UnlockedRegions == regionControllers.Count)
+		PlayerManager.AddSupplies(new Supplies(100 * GameState.Instance.UnlockedRegions));
+		if (GameState.Instance.UnlockedRegions == regionControllers.Count)
         {
 			GameState.Instance.AllRegionsUnlocked = true;
         }
@@ -65,7 +65,8 @@ public class RegionsManager : MonoBehaviour
 			var tile = regionTilemaps[i].GetTile(position);
 			if(tile != null)
             {
-				return regionControllers[i].Activated;
+				var activated = regionControllers[i].Activated;
+				if (activated) return true;
             }
         }
 		return false;

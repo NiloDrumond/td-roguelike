@@ -9,7 +9,7 @@ public class PathController : MonoBehaviour
     [SerializeField] private Grid grid;
     [SerializeField] public Path Path;
     [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private float lineWidth = 0.04f;
+    [SerializeField] private float lineWidth = 0.01f;
 
     private Dictionary<int, float> spawnDelays;
     public bool Activated;
@@ -58,14 +58,18 @@ public class PathController : MonoBehaviour
 
 	public void AddWaypoint(Vector3Int cell)
     {
-        EditorUtility.SetDirty(Path);
+        #if UNITY_EDITOR
+            EditorUtility.SetDirty(Path);
+        #endif  
         Path.waypoints.Add(cell);
     }
 
 
     public void RemoveWaypoint(Vector3Int cell)
     {
-        EditorUtility.SetDirty(Path);
+        #if UNITY_EDITOR
+            EditorUtility.SetDirty(Path);
+        #endif
         Path.waypoints.Remove(cell);
     }
 

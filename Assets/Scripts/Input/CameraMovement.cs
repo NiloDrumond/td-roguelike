@@ -25,11 +25,11 @@ public class CameraMovement : MonoBehaviour
     {
         tilemap.CompressBounds();
 
-        mapMinX = tilemap.transform.position.x - tilemap.localBounds.size.x / 2f;
-        mapMaxX = tilemap.transform.position.x + tilemap.localBounds.size.x / 2f;
+        mapMinX = tilemap.transform.position.x - tilemap.localBounds.size.x / 2;
+        mapMaxX = tilemap.transform.position.x + tilemap.localBounds.size.x / 2;
 
-        mapMinY = tilemap.transform.position.y - tilemap.localBounds.size.y / 2f;
-        mapMaxY = tilemap.transform.position.y + tilemap.localBounds.size.y / 2f;
+        mapMinY = tilemap.transform.position.y - tilemap.localBounds.size.y;
+        mapMaxY = tilemap.transform.position.y + tilemap.localBounds.size.y / 2;
     }
 
     // Update is called once per frame

@@ -8,6 +8,7 @@ public class GameState : MonoBehaviour
     public static GameState Instance { get; private set; }
 
     [SerializeField] private TMP_Text unlockRegionText;
+    [SerializeField] private TMP_Text regionsUnlockedText;
     public bool IsEditing;
     private bool isUnlockingRegion;
     public bool IsUnlockingRegion
@@ -19,7 +20,18 @@ public class GameState : MonoBehaviour
             isUnlockingRegion = value;
         }
     }
-    public int UnlockedRegions = 0;
+
+    public bool IsUpgrading;
+    private int unlockedRegions = 0;
+    public int UnlockedRegions
+    {
+        get { return unlockedRegions; }
+        set
+        {
+            regionsUnlockedText.text = $"{value}/9";
+            unlockedRegions = value;
+        }
+    }
     public bool AllRegionsUnlocked = false;
 
     private void Awake()

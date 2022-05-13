@@ -9,10 +9,11 @@ public class TowerManager : MonoBehaviour
 	public static List<TowerBehaviour> TowersInGame;
 	public static Dictionary<int, GameObject> TowerPrefabs;
 	private static TowerData[] towerResources;
-	public static int TowerToBuild = 0;
+	public static int towerToBuild = -1;
 
 	private static bool isInitialized = false;
 	private static GameObject towersParent;
+
 
 
 	public static void Init()
@@ -22,6 +23,7 @@ public class TowerManager : MonoBehaviour
 			TowersInGame = new List<TowerBehaviour>();
 			towerResources = Resources.LoadAll<TowerData>("Entities/Towers");
 			TowerPrefabs = new Dictionary<int, GameObject>();
+			GameState.Instance.IsUnlockingRegion = false;
 
 			for (int i = 0; i < towerResources.Length; i++)
 			{
@@ -43,17 +45,17 @@ public class TowerManager : MonoBehaviour
 	}
 
 
-	public static void SelectTowerToBuild(int index)
+	public static void SelecttowerToBuild(int index)
 	{
-		TowerToBuild = index;
+		towerToBuild = index;
 	}
 
 	public static bool PlaceTower(Vector3 worldPosition)
 	{
-		if (TowerToBuild >= 0)
+		if (towerToBuild >= 0)
 		{
-			TowerSpawnData spawnData = new TowerSpawnData() { ID = TowerToBuild, Position = worldPosition };
-			TowerData data = towerResources[TowerToBuild];
+			TowerSpawnData spawnData = new TowerSpawnData() { ID = towerToBuild, Position = worldPosition };
+			TowerData data = towerResources[towerToBuild];
 			Supplies cost = new Supplies(data.MineralsCost);
 			bool enoughSupplies = PlayerManager.SpendSupplies(cost);
 			if (!enoughSupplies) return false;
@@ -73,6 +75,25 @@ public class TowerManager : MonoBehaviour
 			TowerBehaviour towerBehaviour = tower.GetComponent<TowerBehaviour>();
 			TowersInGame.Add(towerBehaviour);
 		}
+	}
+	public static void UpgradeTime()
+    {
+		GameState.Instance.IsUpgrading = true;
+	}
+	public static bool UpgradeTower(Vector3 position)
+	{
+		int index = TowersInGame.FindIndex(t => {
+			return t.transform.position.x == position.x && t.transform.position.y == position.y;
+		});
+		if (index < 0) return false;
+		GameObject obj = TowersInGame[index].gameObject;
+		Supplies cost = new Supplies(TowersInGame[index].CostToUpgrade);
+		bool enoughSupplies = PlayerManager.SpendSupplies(cost);
+		if (!enoughSupplies) return false;
+		TowersInGame[index].Upgrade();
+		GameState.Instance.IsUpgrading = false;
+		return true;
+
 	}
 
 	public static void RemoveTower(Vector3 position)

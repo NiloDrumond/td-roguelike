@@ -30,7 +30,7 @@ public class LaserDamage : MonoBehaviour, IDamageMethod
 			delay = 1 / firerate;
 		} else
 		{
-			LaserRenderer.enabled = false;
+			LaserRenderer.enabled = false;	
 		}
 		
 	}
@@ -42,4 +42,8 @@ public class LaserDamage : MonoBehaviour, IDamageMethod
 		this.delay = 1 / firerate;
 		LaserRenderer.useWorldSpace = true;
 	}
+		public void upgrade(float damage, float firerate)
+		{
+			this.firerate = firerate * 2;
+		}
 }

@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -256,6 +257,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      tower_1_4: -1847317640553318008
+      tower_1_1: -3704938143919880969
+      tower_1_5: 6253796598466134599
+      tower_1_0: 2277204698151690033
+      tower_1_2: -5444683889563288029
+      tower_1_3: 1511240722630027674
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

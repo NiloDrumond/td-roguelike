@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2277204698151690033, guid: d115133d22190ab41b9076379b54e4a3, type: 3}
+  m_Sprite: {fileID: -4897582982598756680, guid: 409eaa016ef0dc149a0ff1918a3bac0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,13 +127,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9fa43777c80d84696be434d6409b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tSpriteRenderer: {fileID: 138890179924069388}
+  Llevel1: {fileID: -4897582982598756680, guid: 409eaa016ef0dc149a0ff1918a3bac0a, type: 3}
+  Llevel2: {fileID: -8719432444927637696, guid: bf1079346405002459272d106dd2d63d, type: 3}
+  Llevel3: {fileID: 204592869225655447, guid: 9e2cf8068c9f4b14bb6614a61b2defe1, type: 3}
   EnemiesLayer:
     serializedVersion: 2
     m_Bits: 64
   Target: {fileID: 0}
   Damage: 2
   Firerate: 1
-  Range: 10
+  Range: 1.5
+  CostToUpgrade: 10
+  level: 0
 --- !u!114 &-3727730240316292662
 MonoBehaviour:
   m_ObjectHideFlags: 0
