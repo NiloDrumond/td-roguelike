@@ -7,13 +7,11 @@ using UnityEngine.Tilemaps;
 
 public class GridController : MonoBehaviour
 {
-    [SerializeField] private Grid grid = null;
     [SerializeField] private Tilemap layer1 = null;
     [SerializeField] private Tilemap layer2 = null;
     [SerializeField] private Tilemap layer3 = null;
     [SerializeField] private Tilemap interactiveMap = null;
     [SerializeField] private Tilemap towersMap = null;
-    [SerializeField] private Tilemap suppliesMap = null;
     [SerializeField] private IsometricRuleTile hoverTile = null;
     [SerializeField] private Tile EmptyTile = null;
 
@@ -70,7 +68,12 @@ public class GridController : MonoBehaviour
             var top = GetTopTile(mousePos);
             Vector3Int high = new Vector3Int(mousePos.x - 100, mousePos.y - 100, mousePos.z + 100);
             interactiveMap.SetTile(previousCursorPosition, null); // Remove old hoverTile
+            bool placeable = RegionsManager.CheckForPlacement(mousePos);
             interactiveMap.SetTile(high, hoverTile);
+            if (!placeable)
+            {
+                interactiveMap.SetColor(high, new Color(140, 0, 0));
+            }
             previousCursorPosition = high;
             
         }

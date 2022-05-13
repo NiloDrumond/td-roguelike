@@ -9,7 +9,7 @@ public class TowerManager : MonoBehaviour
 	public static List<TowerBehaviour> TowersInGame;
 	public static Dictionary<int, GameObject> TowerPrefabs;
 	private static TowerData[] towerResources;
-	public static int towerToBuild = 0;
+	public static int towerToBuild = -1;
 
 	private static bool isInitialized = false;
 	private static GameObject towersParent;
