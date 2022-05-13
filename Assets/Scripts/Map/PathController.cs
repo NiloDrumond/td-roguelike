@@ -58,14 +58,18 @@ public class PathController : MonoBehaviour
 
 	public void AddWaypoint(Vector3Int cell)
     {
-        EditorUtility.SetDirty(Path);
+        #if UNITY_EDITOR
+            EditorUtility.SetDirty(Path);
+        #endif  
         Path.waypoints.Add(cell);
     }
 
 
     public void RemoveWaypoint(Vector3Int cell)
     {
-        EditorUtility.SetDirty(Path);
+        #if UNITY_EDITOR
+            EditorUtility.SetDirty(Path);
+        #endif
         Path.waypoints.Remove(cell);
     }
 
