@@ -9,7 +9,7 @@ public class TowerManager : MonoBehaviour
 	public static List<TowerBehaviour> TowersInGame;
 	public static Dictionary<int, GameObject> TowerPrefabs;
 	private static TowerData[] towerResources;
-	public static int TowerToBuild = 0;
+	public static int towerToBuild = 0;
 
 	private static bool isInitialized = false;
 	private static GameObject towersParent;
@@ -45,17 +45,17 @@ public class TowerManager : MonoBehaviour
 	}
 
 
-	public static void SelectTowerToBuild(int index)
+	public static void SelecttowerToBuild(int index)
 	{
-		TowerToBuild = index;
+		towerToBuild = index;
 	}
 
 	public static bool PlaceTower(Vector3 worldPosition)
 	{
-		if (TowerToBuild >= 0)
+		if (towerToBuild >= 0)
 		{
-			TowerSpawnData spawnData = new TowerSpawnData() { ID = TowerToBuild, Position = worldPosition };
-			TowerData data = towerResources[TowerToBuild];
+			TowerSpawnData spawnData = new TowerSpawnData() { ID = towerToBuild, Position = worldPosition };
+			TowerData data = towerResources[towerToBuild];
 			Supplies cost = new Supplies(data.MineralsCost);
 			bool enoughSupplies = PlayerManager.SpendSupplies(cost);
 			if (!enoughSupplies) return false;

@@ -39,6 +39,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -220,6 +221,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      torrerobofase1-sheet_0: -4897582982598756680
+      torrerobofase1-sheet_2: -7292696932854961664
+      torrerobofase1-sheet_3: -1471907233873121915
+      torrerobofase1-sheet_1: 4725866330058310875
+      torrerobofase1-sheet_4: -1729958189627200233
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

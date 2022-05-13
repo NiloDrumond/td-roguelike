@@ -354,6 +354,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -2752,6 +2753,117 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Isometric_MedievalFantasy_Tiles_63: -6592305930742355181
+      Isometric_MedievalFantasy_Tiles_50: 5949501886933079248
+      Isometric_MedievalFantasy_Tiles_39: 1353737911109648496
+      Isometric_MedievalFantasy_Tiles_12: 8808137289527317719
+      Isometric_MedievalFantasy_Tiles_80: 7646972977390362164
+      Isometric_MedievalFantasy_Tiles_62: 6249819896551647695
+      Isometric_MedievalFantasy_Tiles_45: 4972630443761654176
+      Isometric_MedievalFantasy_Tiles_32: -1217027537639094228
+      Isometric_MedievalFantasy_Tiles_38: 5322116494800625357
+      Isometric_MedievalFantasy_Tiles_26: -8981296821139146592
+      Isometric_MedievalFantasy_Tiles_31: 1898651164276741911
+      Isometric_MedievalFantasy_Tiles_30: -8828006932438182138
+      Isometric_MedievalFantasy_Tiles_27: 6555614936758952612
+      Isometric_MedievalFantasy_Tiles_52: -2660021734555617490
+      Isometric_MedievalFantasy_Tiles_37: 3523932675402302911
+      Isometric_MedievalFantasy_Tiles_103: -3062063522272875584
+      Isometric_MedievalFantasy_Tiles_57: 6214170284313596038
+      Isometric_MedievalFantasy_Tiles_51: 8287235946988853616
+      Isometric_MedievalFantasy_Tiles_25: 7874609417490879617
+      Isometric_MedievalFantasy_Tiles_97: 8689250495302834370
+      Isometric_MedievalFantasy_Tiles_21: 3580922416806384956
+      Isometric_MedievalFantasy_Tiles_35: -4964455359830170282
+      Isometric_MedievalFantasy_Tiles_43: 4435321334979290036
+      Isometric_MedievalFantasy_Tiles_98: -5478352297852093995
+      Isometric_MedievalFantasy_Tiles_76: -4119082103492806916
+      Isometric_MedievalFantasy_Tiles_91: -8348675828961932441
+      Isometric_MedievalFantasy_Tiles_41: 7312276034102571270
+      Isometric_MedievalFantasy_Tiles_48: 6277131272416994152
+      Isometric_MedievalFantasy_Tiles_55: -4640804480097270087
+      Isometric_MedievalFantasy_Tiles_68: 9207303263202121314
+      Isometric_MedievalFantasy_Tiles_79: -5255472639413368087
+      Isometric_MedievalFantasy_Tiles_15: 3401057284424837651
+      Isometric_MedievalFantasy_Tiles_96: 8131079713498775984
+      Isometric_MedievalFantasy_Tiles_75: -8413883367235818147
+      Isometric_MedievalFantasy_Tiles_101: -8106422343892466933
+      Isometric_MedievalFantasy_Tiles_102: 6138863471626060531
+      Isometric_MedievalFantasy_Tiles_49: 5954689662591398450
+      Isometric_MedievalFantasy_Tiles_4: -2660015859045283293
+      Isometric_MedievalFantasy_Tiles_82: 8190134561325408523
+      Isometric_MedievalFantasy_Tiles_66: -7709375086633997036
+      Isometric_MedievalFantasy_Tiles_108: -6444963085144275085
+      Isometric_MedievalFantasy_Tiles_13: 7326271892637236120
+      Isometric_MedievalFantasy_Tiles_92: -3857124168902117211
+      Isometric_MedievalFantasy_Tiles_0: 7401597365613437681
+      Isometric_MedievalFantasy_Tiles_81: -6530976270252815388
+      Isometric_MedievalFantasy_Tiles_93: 1059014821510640654
+      Isometric_MedievalFantasy_Tiles_69: -5858295124187448860
+      Isometric_MedievalFantasy_Tiles_77: 9151354135474024950
+      Isometric_MedievalFantasy_Tiles_18: 1817998490898704807
+      Isometric_MedievalFantasy_Tiles_67: 2225399708058802240
+      Isometric_MedievalFantasy_Tiles_14: -9166896149604634654
+      Isometric_MedievalFantasy_Tiles_46: 8159597462900964523
+      Isometric_MedievalFantasy_Tiles_53: -4685277597250492143
+      Isometric_MedievalFantasy_Tiles_22: -1608008311667981770
+      Isometric_MedievalFantasy_Tiles_90: 5142430413353254535
+      Isometric_MedievalFantasy_Tiles_100: 6793028619066950718
+      Isometric_MedievalFantasy_Tiles_28: -7262456480227634156
+      Isometric_MedievalFantasy_Tiles_106: 2296429674048911034
+      Isometric_MedievalFantasy_Tiles_6: -7940657911628302716
+      Isometric_MedievalFantasy_Tiles_47: 8364079438356397109
+      Isometric_MedievalFantasy_Tiles_85: 256069806557996541
+      Isometric_MedievalFantasy_Tiles_5: -2098597665323290509
+      Isometric_MedievalFantasy_Tiles_17: -9161139751600948302
+      Isometric_MedievalFantasy_Tiles_29: -8751702287907626753
+      Isometric_MedievalFantasy_Tiles_89: -4987900756109629540
+      Isometric_MedievalFantasy_Tiles_7: 5767359726489470585
+      Isometric_MedievalFantasy_Tiles_64: 4031771959152364498
+      Isometric_MedievalFantasy_Tiles_72: 7507037258142804206
+      Isometric_MedievalFantasy_Tiles_34: 896242779151626675
+      Isometric_MedievalFantasy_Tiles_44: 798546005844283342
+      Isometric_MedievalFantasy_Tiles_95: 7703107667977995196
+      Isometric_MedievalFantasy_Tiles_104: 3831813118845537530
+      Isometric_MedievalFantasy_Tiles_105: 7700422373175757615
+      Isometric_MedievalFantasy_Tiles_73: -1632750024253528476
+      Isometric_MedievalFantasy_Tiles_99: -755990510859962855
+      Isometric_MedievalFantasy_Tiles_56: -2694236995310726347
+      Isometric_MedievalFantasy_Tiles_2: -7000211038564501680
+      Isometric_MedievalFantasy_Tiles_84: 4506961169894956131
+      Isometric_MedievalFantasy_Tiles_59: -6825213805140748238
+      Isometric_MedievalFantasy_Tiles_74: -689012706344038002
+      Isometric_MedievalFantasy_Tiles_107: 783443629528991611
+      Isometric_MedievalFantasy_Tiles_83: -4846904734052661397
+      Isometric_MedievalFantasy_Tiles_61: -1115704482943214749
+      Isometric_MedievalFantasy_Tiles_78: -8591976649838518321
+      Isometric_MedievalFantasy_Tiles_1: 6827237486290818563
+      Isometric_MedievalFantasy_Tiles_54: -1447044377217391716
+      Isometric_MedievalFantasy_Tiles_109: 5047820146670268108
+      Isometric_MedievalFantasy_Tiles_40: -4839873482370792810
+      Isometric_MedievalFantasy_Tiles_71: -1116201231381682376
+      Isometric_MedievalFantasy_Tiles_36: -8787921714011696981
+      Isometric_MedievalFantasy_Tiles_10: -4719289545455706666
+      Isometric_MedievalFantasy_Tiles_20: -3232258526632039948
+      Isometric_MedievalFantasy_Tiles_19: -8479270946802856207
+      Isometric_MedievalFantasy_Tiles_24: -5217295103659865929
+      Isometric_MedievalFantasy_Tiles_87: -1454039241176068270
+      Isometric_MedievalFantasy_Tiles_9: 8258781335015932399
+      Isometric_MedievalFantasy_Tiles_58: 8599249085769943503
+      Isometric_MedievalFantasy_Tiles_60: 3611757356825723060
+      Isometric_MedievalFantasy_Tiles_94: 7034223609390794741
+      Isometric_MedievalFantasy_Tiles_8: -4660748518257407462
+      Isometric_MedievalFantasy_Tiles_3: 2576077561100261014
+      Isometric_MedievalFantasy_Tiles_23: -3119601014371361367
+      Isometric_MedievalFantasy_Tiles_11: 8310312948776840768
+      Isometric_MedievalFantasy_Tiles_42: 2517440940719988491
+      Isometric_MedievalFantasy_Tiles_70: 4160175479621426034
+      Isometric_MedievalFantasy_Tiles_16: -4343444657107832969
+      Isometric_MedievalFantasy_Tiles_88: 2359861716890231678
+      Isometric_MedievalFantasy_Tiles_33: 1842874874258429901
+      Isometric_MedievalFantasy_Tiles_86: -6671376440958174275
+      Isometric_MedievalFantasy_Tiles_65: -8007140843923353745
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

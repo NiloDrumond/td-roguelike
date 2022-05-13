@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TowerBehaviour: MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer tSpriteRenderer;
-    [SerializeField] private Sprite Llevel1;
-    [SerializeField] private Sprite Llevel2;
-    [SerializeField] private Sprite Llevel3;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite level1;
+    [SerializeField] private Sprite level2;
+    [SerializeField] private Sprite level3;
     public LayerMask EnemiesLayer;
     public Enemy Target;
     public float Damage;
@@ -28,7 +28,7 @@ public class TowerBehaviour: MonoBehaviour
 		}
 
         damageMethod = method;
-        tSpriteRenderer.sprite = Llevel1;
+        spriteRenderer.sprite = level1;
         damageMethod.Init(Damage, Firerate);
         level = 1;
 	}
@@ -45,11 +45,11 @@ public class TowerBehaviour: MonoBehaviour
         damageMethod = method;
         if (level == 2)
         {
-            tSpriteRenderer.sprite = Llevel2;
+            spriteRenderer.sprite = level2;
         }
         else
         {
-            tSpriteRenderer.sprite = Llevel3;
+            spriteRenderer.sprite = level3;
         }
         damageMethod.upgrade(Damage, Firerate);
 

@@ -96,6 +96,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -688,6 +689,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      pico8-isometric_6: -2907997015048609303
+      pico8-isometric_16: 1874947669066476934
+      pico8-isometric_4: -2150455871703161899
+      pico8-isometric_18: 8606405129337005649
+      pico8-isometric_3: -976881731657982904
+      pico8-isometric_23: -5909132583945884360
+      pico8-isometric_9: -550915742115707946
+      pico8-isometric_10: -6916707154374137374
+      pico8-isometric_12: -911848491389695204
+      pico8-isometric_2: 8236470060390396240
+      pico8-isometric_13: 7623686331279463148
+      pico8-isometric_21: 9006395593016796117
+      pico8-isometric_8: -4984901011847337723
+      pico8-isometric_0: 2404485975304930117
+      pico8-isometric_19: -4698721871371080246
+      pico8-isometric_22: 1510725428572369818
+      pico8-isometric_14: -9017620294882746193
+      pico8-isometric_1: 8806834223252765135
+      pico8-isometric_11: -9059084293665190859
+      pico8-isometric_5: -1016024286571642311
+      pico8-isometric_7: 25517434370985070
+      pico8-isometric_20: -4535086708612433980
+      pico8-isometric_15: 4071938230873856817
+      pico8-isometric_17: -7478810448889021703
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

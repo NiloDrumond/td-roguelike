@@ -30,8 +30,6 @@ public class CameraMovement : MonoBehaviour
 
         mapMinY = tilemap.transform.position.y - tilemap.localBounds.size.y;
         mapMaxY = tilemap.transform.position.y + tilemap.localBounds.size.y / 2;
-        Debug.Log(tilemap.transform.position);
-        Debug.Log(tilemap.localBounds.size);
     }
 
     // Update is called once per frame

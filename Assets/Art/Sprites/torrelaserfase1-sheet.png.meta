@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -244,6 +245,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      torrelaserfase1-sheet_3: 7884817807950311558
+      torrelaserfase1-sheet_4: 3836416678077169680
+      torrelaserfase1-sheet_2: 5493232870715223514
+      torrelaserfase1-sheet_5: -7174434816804306126
+      torrelaserfase1-sheet_0: 1734505344336248340
+      torrelaserfase1-sheet_1: 8755376528140097139
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
